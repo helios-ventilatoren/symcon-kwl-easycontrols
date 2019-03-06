@@ -2514,26 +2514,31 @@ class HELIOS extends IPSModule
 
     public function Afterheater_HeatOutputDelivered_Get()
     {
-        $result1 = $this->FunctionHelperGET('v01106', __FUNCTION__, true);
-        $result2 = $this->FunctionHelperGET('v01109', __FUNCTION__, true);
+        if ($this->Afterheater_Status_Get() === true) {
 
-        $result = NULL;
-        if (($result1 !== NULL) && ($result2 !== NULL)) {
-            if ((float)$result1 === 0) {
-                $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0029 // ' . $this->Translate('Implausible data - abort') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0, KL_ERROR);
-                return false;
+            $result1 = $this->FunctionHelperGET('v01106', __FUNCTION__, true);
+            $result2 = $this->FunctionHelperGET('v01109', __FUNCTION__, true);
+
+            $result = NULL;
+            if (($result1 !== NULL) && ($result2 !== NULL)) {
+                if ($result1 == 0) {
+                    $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0029 // ' . $this->Translate('Implausible data - abort') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0, KL_ERROR);
+                    return false;
+                }
+
+                if ($result2 == 0) {
+                    $result = 0;
+                } else {
+                    $result = round(((float)$result2 / (float)$result1) * 100, 1);
+                }
+
+                $this->SetValue_IfDifferent('AfterheaterHeatOutputDelivered', $result);
             }
 
-            if ((float)$result2 === 0) {
-                $result = 0;
-            } else {
-                $result = round(((float)$result2 / (float)$result1) * 100, 1);
-            }
-
-            $this->SetValue_IfDifferent('AfterheaterHeatOutputDelivered', $result);
+            return $result;
         }
 
-        return $result;
+        return false;
     }
 
 
@@ -3480,29 +3485,31 @@ class HELIOS extends IPSModule
 
     public function Preheater_HeatOutputDelivered_Get()
     {
-        $result1 = $this->FunctionHelperGET('v01105', __FUNCTION__, true);
-        $result2 = $this->FunctionHelperGET('v01108', __FUNCTION__, true);
+        if ($this->Preheater_Status_Get() === true) {
 
-        $result = NULL;
-        if (($result1 !== NULL) && ($result2 !== NULL)) {
-            if ((float)$result1 === 0) {
-                $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0028 // ' . $this->Translate('Implausible data - abort') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0, KL_ERROR);
-                return false;
+            $result1 = $this->FunctionHelperGET('v01105', __FUNCTION__, true);
+            $result2 = $this->FunctionHelperGET('v01108', __FUNCTION__, true);
+
+            $result = NULL;
+            if (($result1 !== NULL) && ($result2 !== NULL)) {
+                if ($result1 == 0) {
+                    $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0028 // ' . $this->Translate('Implausible data - abort') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0, KL_ERROR);
+                    return false;
+                }
+
+                if ($result2 == 0) {
+                    $result = 0;
+                } else {
+                    $result = round(((float)$result2 / (float)$result1) * 100, 1);
+                }
+
+                $this->SetValue_IfDifferent('PreheaterHeatOutputDelivered', $result);
             }
 
-            $this->SendDebug(__FUNCTION__, 'DEBUG 1 // '.$this->DataToString($result1), 0);
-            $this->SendDebug(__FUNCTION__, 'DEBUG 2 // '.$this->DataToString($result2), 0);
-
-            if ((float)$result2 === 0) {
-                $result = 0;
-            } else {
-                $result = round(((float)$result2 / (float)$result1) * 100, 1);
-            }
-
-            $this->SetValue_IfDifferent('PreheaterHeatOutputDelivered', $result);
+            return $result;
         }
 
-        return $result;
+        return false;
     }
 
 
