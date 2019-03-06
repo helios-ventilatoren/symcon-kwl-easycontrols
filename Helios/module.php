@@ -3909,8 +3909,8 @@ class HELIOS extends IPSModule
             $textBitAR[24] = $this->Translate('Defrost heat exchanger');
             $textBitAR[25] = $this->Translate('Defrost hot water coil');
             $textBitAR[26] = $this->Translate('Filter change due');
-            $textBitAR[27][0] = $this->Translate('Configuration 1 - DIBt');
-            $textBitAR[27][1] = $this->Translate('Configuration 2 - PHI');
+            $textBitAR[27][0] = $this->Translate('Configuration 1 - PHI');
+            $textBitAR[27][1] = $this->Translate('Configuration 2 - DIBt');
             $textBitAR[28] = $this->Translate('BEC-UI deactivated via Web');
             $textBitAR[29] = $this->Translate('Locking the control unit');
             $textBitAR[30] = $this->Translate('Master Password required (wrong password entered too often)');
