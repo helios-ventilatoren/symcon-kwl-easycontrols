@@ -3490,6 +3490,9 @@ class HELIOS extends IPSModule
                 return false;
             }
 
+            $this->SendDebug(__FUNCTION__, 'DEBUG 1 // '.$this->DataToString($result1), 0);
+            $this->SendDebug(__FUNCTION__, 'DEBUG 2 // '.$this->DataToString($result2), 0);
+
             if ((float)$result2 === 0) {
                 $result = 0;
             } else {
