@@ -2877,8 +2877,7 @@ class HELIOS extends IPSModule
         $result = $this->FunctionHelperGET('v01033', __FUNCTION__, true);
 
         if ($result !== NULL) {
-            $result = (int)$result / 60 / 24;
-            $result = (int)$result;
+            $result = round((int)$result / 60 / 24);
 
             $this->SetValue_IfDifferent('FilterRemainingTime', $result);
 
@@ -2897,7 +2896,18 @@ class HELIOS extends IPSModule
 
     public function Filter_Reset()
     {
-        return $this->FunctionHelperSET('v01034', 1);
+        $filterInterval = $this->Filter_ChangeInterval_Get();
+        $result = NULL;
+        if ($filterInterval !== NULL) {
+            $filterIntervalHours = $filterInterval * 30 * 24 * 60;
+            $postData = 'v01034=1&v01033='.$filterIntervalHours;
+
+            $result = $this->FunctionHelperSETcustom('gear.htm', $postData);
+            IPS_Sleep(2000);
+            $this->Filter_RemainingDays_Get();
+        }
+
+        return $result;
     }
 
 
