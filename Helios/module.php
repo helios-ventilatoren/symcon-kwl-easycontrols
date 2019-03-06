@@ -2025,7 +2025,7 @@ class HELIOS extends IPSModule
         }
         if ($this->FunctionHelperGET('v02152', __FUNCTION__) === '1') {
             $this->Variable_Register('HumidityControlInternal', $this->Translate('Humidity-Control (internal)'), 'HELIOS.HumidityControlInternal', '', 0, true);
-            $this->Variable_Register('HumidityControlInternalExtractAir', $this->Translate('Humidity-Control (internal - extract air)'), 'HELIOS.Intensity0100', '', 1, true);
+            $this->Variable_Register('HumidityControlInternalExtractAir', $this->Translate('Humidity-Control (internal - extract air)'), 'HELIOS.Intensity0100', '', 1, false);
         } else {
             $this->Variable_Unregister('HumidityControlInternal');
             $this->Variable_Unregister('HumidityControlInternalExtractAir');
@@ -2977,6 +2977,7 @@ class HELIOS extends IPSModule
 
         if ($result !== NULL) {
             $result = $this->DataToBool($result);
+            $this->SetValue_IfDifferent('HumidityControlInternal', $result);
         }
 
         return $result;
@@ -2988,25 +2989,11 @@ class HELIOS extends IPSModule
         $result = $this->FunctionHelperGET('v02136', __FUNCTION__, true);
 
         if ($result !== NULL) {
-            $result = $this->DataToBool($result);
+            $result = (int)$result;
+            $this->SetValue_IfDifferent('HumidityControlInternalExtractAir', $result);
         }
 
         return $result;
-    }
-
-
-    // 0-100%
-    public function HumidityControl_Internal_ExhaustAir_Set(int $value)
-    {
-        $vID = 'v02136';
-
-        if (($value >= 0) || ($value <= 100)) {
-            $result = $this->FunctionHelperSET($vID, $value);
-            $this->SetValue_IfDifferent('HumidityControlInternalExtractAir', $value);
-            return $result;
-        }
-
-        return false;
     }
 
 
