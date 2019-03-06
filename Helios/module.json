@@ -1,0 +1,14 @@
+{
+	"id": "{889DFBC4-09A6-4D77-9928-738E5D494362}",
+	"name": "HELIOS",
+	"type": 3,
+	"vendor": "Helios Ventilatoren",
+	"aliases": 
+	[
+		"Helios easyControls"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": "HELIOS"
+}

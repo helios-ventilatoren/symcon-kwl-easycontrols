@@ -1,0 +1,12 @@
+{
+	"id": "{859431EC-ED2E-457A-A528-FD6E9C927D66}",
+	"author": "Christoph Bach (Bayaro)",
+	"name": "Helios",
+	"url": "https://www.heliosventilatoren.de",
+        "compatibility": {
+            "version": "4.3"
+        },
+        "version": "0.9",
+        "build": 0,
+        "date": 0
+}
