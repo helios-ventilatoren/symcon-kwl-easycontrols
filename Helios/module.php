@@ -3923,7 +3923,19 @@ class HELIOS extends IPSModule
                 $resultAR = array();
                 if (@array_key_exists('31', $binAR) === true) {
                     foreach ($binAR as $index => $binEntry) {
-                        if ($binEntry === 1) {
+
+                        if ($index === 11) {
+                            if ($this->Preheater_Status_Get() === false) {
+                                continue;
+                            }
+                        }
+                        if ($index === 15) {
+                            if ($this->Afterheater_Status_Get() === false) {
+                                continue;
+                            }
+                        }
+
+                        if ($binEntry === '1') {
                             if (@array_key_exists('1', $textBitAR[$index]) === true) {
                                 $resultAR[$index + 1] = $textBitAR[$index][1];
                             } else {
