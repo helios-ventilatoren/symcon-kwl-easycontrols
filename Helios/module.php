@@ -3924,7 +3924,7 @@ class HELIOS extends IPSModule
                 if (@array_key_exists('31', $binAR) === true) {
                     foreach ($binAR as $index => $binEntry) {
 
-                        if ($index === 11) {
+                        if (($index === 7) || ($index === 8) || ($index === 11)) {
                             if ($this->Preheater_Status_Get() === false) {
                                 continue;
                             }
