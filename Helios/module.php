@@ -3841,7 +3841,13 @@ class HELIOS extends IPSModule
 
     public function System_Messages_Reset()
     {
-        return $this->FunctionHelperSET('02105', 1);
+        $postData = 'v01300=0&v01303=00000000000000000000000000000000&v01301=0&v01304=00000000&v01302=0&v01305=00000000&v02104=0&v01120=1&v02105=1';
+
+        $result = $this->FunctionHelperSETcustom('fehl.htm', $postData);
+        IPS_Sleep(2000);
+        $this->Update_System_Data();
+
+        return $result;
     }
 
 
