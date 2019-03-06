@@ -2524,7 +2524,7 @@ class HELIOS extends IPSModule
                 return false;
             }
 
-            if ((float)$result1 === 0) {
+            if ((float)$result2 === 0) {
                 $result = 0;
             } else {
                 $result = round(((float)$result2 / (float)$result1) * 100, 1);
@@ -3490,7 +3490,7 @@ class HELIOS extends IPSModule
                 return false;
             }
 
-            if ((float)$result1 === 0) {
+            if ((float)$result2 === 0) {
                 $result = 0;
             } else {
                 $result = round(((float)$result2 / (float)$result1) * 100, 1);
