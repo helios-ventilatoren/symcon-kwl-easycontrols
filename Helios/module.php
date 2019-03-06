@@ -123,9 +123,12 @@ class HELIOS extends IPSModule
             return parent::Destroy();
         }
 
-        $VarProfilesAR = array('HELIOS.Bypass', 'HELIOS.CO2VOC.ppm', 'HELIOS.Days', 'HELIOS.DefrostState', 'HELIOS.ErrorNoYes', 'HELIOS.FanLevel', 'HELIOS.FanSpeedRPM', 'HELIOS.FanLevelPercent', 'HELIOS.Filter.Months', 'HELIOS.HeatRecoveryEfficiency', 'HELIOS.Mode', 'HELIOS.ModeDuration', 'HELIOS.ModeIntervalTime', 'HELIOS.ModeActivationPeriod', 'HELIOS.OperatingModeRemainingTime', 'HELIOS.ModeVacationProgram', 'HELIOS.OperatingHours', 'HELIOS.OperatingMode', 'HELIOS.PreAfterheater.Perc.Float', 'HELIOS.PreAfterheater.Perc.Int', 'HELIOS.PreAfterheaterState', 'HELIOS.RelativeHumidity', 'HELIOS.ResetAction', 'HELIOS.StateSwitch', 'HELIOS.Temperature.Indoor', 'HELIOS.Temperature.Outdoor', 'HELIOS.VOCCO2HUMControl', 'HELIOS.WeekProgram');
-        foreach ($VarProfilesAR as $VarProfilNameDEL) {
-            @IPS_DeleteVariableProfile($VarProfilNameDEL);
+        $ModuleInstancesAR = IPS_GetInstanceListByModuleID('{889DFBC4-09A6-4D77-9928-738E5D494362}');
+        if (@array_key_exists('0', $ModuleInstancesAR) === false) {
+            $VarProfilesAR = array('HELIOS.Bypass', 'HELIOS.CO2VOC.ppm', 'HELIOS.Days', 'HELIOS.DefrostState', 'HELIOS.ErrorNoYes', 'HELIOS.FanLevel', 'HELIOS.FanSpeedRPM', 'HELIOS.FanLevelPercent', 'HELIOS.Filter.Months', 'HELIOS.HeatRecoveryEfficiency', 'HELIOS.Mode', 'HELIOS.ModeDuration', 'HELIOS.ModeIntervalTime', 'HELIOS.ModeActivationPeriod', 'HELIOS.OperatingModeRemainingTime', 'HELIOS.ModeVacationProgram', 'HELIOS.OperatingHours', 'HELIOS.OperatingMode', 'HELIOS.PreAfterheater.Perc.Float', 'HELIOS.PreAfterheater.Perc.Int', 'HELIOS.PreAfterheaterState', 'HELIOS.RelativeHumidity', 'HELIOS.ResetAction', 'HELIOS.StateSwitch', 'HELIOS.Temperature.Indoor', 'HELIOS.Temperature.Outdoor', 'HELIOS.VOCCO2HUMControl', 'HELIOS.WeekProgram');
+            foreach ($VarProfilesAR as $VarProfilNameDEL) {
+                @IPS_DeleteVariableProfile($VarProfilNameDEL);
+            }
         }
 
         parent::Destroy();
@@ -2521,7 +2524,11 @@ class HELIOS extends IPSModule
                 return false;
             }
 
-            $result = round(((float)$result2 / (float)$result1) * 100, 1);
+            if ((float)$result1 === 0) {
+                $result = 0;
+            } else {
+                $result = round(((float)$result2 / (float)$result1) * 100, 1);
+            }
 
             $this->SetValue_IfDifferent('AfterheaterHeatOutputDelivered', $result);
         }
@@ -3483,7 +3490,11 @@ class HELIOS extends IPSModule
                 return false;
             }
 
-            $result = round(((float)$result2 / (float)$result1) * 100, 1);
+            if ((float)$result1 === 0) {
+                $result = 0;
+            } else {
+                $result = round(((float)$result2 / (float)$result1) * 100, 1);
+            }
 
             $this->SetValue_IfDifferent('PreheaterHeatOutputDelivered', $result);
         }
@@ -3898,7 +3909,7 @@ class HELIOS extends IPSModule
             $textBitAR[24] = $this->Translate('Defrost heat exchanger');
             $textBitAR[25] = $this->Translate('Defrost hot water coil');
             $textBitAR[26] = $this->Translate('Filter change due');
-            $textBitAR[27][0] = $this->Translate('Configuration 1 - DIBT');
+            $textBitAR[27][0] = $this->Translate('Configuration 1 - DIBt');
             $textBitAR[27][1] = $this->Translate('Configuration 2 - PHI');
             $textBitAR[28] = $this->Translate('BEC-UI deactivated via Web');
             $textBitAR[29] = $this->Translate('Locking the control unit');
@@ -3912,7 +3923,7 @@ class HELIOS extends IPSModule
                 $resultAR = array();
                 if (@array_key_exists('31', $binAR) === true) {
                     foreach ($binAR as $index => $binEntry) {
-                        if ($binEntry === '1') {
+                        if ($binEntry === 1) {
                             if (@array_key_exists('1', $textBitAR[$index]) === true) {
                                 $resultAR[$index + 1] = $textBitAR[$index][1];
                             } else {
