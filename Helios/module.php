@@ -917,7 +917,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 07.03.2019 - 17:00 #####"},
+		{ "type": "Label", "label": "##### 07.03.2019 - 22:00 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1060,7 +1060,7 @@ class HELIOS extends IPSModule
         $dataAR['log_operatingmode']['varIdentAR'] = array('OperatingMode');
         $dataAR['log_operatinghours']['varIdentAR'] = array('OperatingHours', 'OperatingHoursExtractAirFan', 'OperatingHoursPreheater', 'OperatingHoursAfterheater', 'OperatingHoursSupplyAirFan');
         $dataAR['log_preafterheater']['varIdentAR'] = array('AfterheaterState', 'PreheaterState');
-        $dataAR['log_sensors']['varIdentAR'] = array('TemperatureOutdoorAir', 'TemperatureSupplyAir', 'TemperatureExhaustAir', 'TemperatureExhaustAir', 'TemperatureDuctOutdoorAir', 'TemperatureDuctSupplyAir', 'TemperatureReturnWWRegister', 'SensorCO2_1', 'SensorCO2_2', 'SensorCO2_3', 'SensorCO2_4', 'SensorCO2_5', 'SensorCO2_6', 'SensorCO2_7', 'SensorCO2_8', 'SensorHumidityRH_1', 'SensorHumidityRH_2', 'SensorHumidityRH_3', 'SensorHumidityRH_4', 'SensorHumidityRH_5', 'SensorHumidityRH_6', 'SensorHumidityRH_7', 'SensorHumidityRH_8', 'SensorHumidityTC_1', 'SensorHumidityTC_2', 'SensorHumidityTC_3', 'SensorHumidityTC_4', 'SensorHumidityTC_5', 'SensorHumidityTC_6', 'SensorHumidityTC_7', 'SensorHumidityTC_8', 'SensorVOC_1', 'SensorVOC_2', 'SensorVOC_3', 'SensorVOC_4', 'SensorVOC_5', 'SensorVOC_6', 'SensorVOC_7', 'SensorVOC_8');
+        $dataAR['log_sensors']['varIdentAR'] = array('TemperatureOutdoorAir', 'TemperatureSupplyAir', 'TemperatureExhaustAir', 'TemperatureExtractAir', 'TemperatureDuctOutdoorAir', 'TemperatureDuctSupplyAir', 'TemperatureReturnWWRegister', 'SensorCO2_1', 'SensorCO2_2', 'SensorCO2_3', 'SensorCO2_4', 'SensorCO2_5', 'SensorCO2_6', 'SensorCO2_7', 'SensorCO2_8', 'SensorHumidityRH_1', 'SensorHumidityRH_2', 'SensorHumidityRH_3', 'SensorHumidityRH_4', 'SensorHumidityRH_5', 'SensorHumidityRH_6', 'SensorHumidityRH_7', 'SensorHumidityRH_8', 'SensorHumidityTC_1', 'SensorHumidityTC_2', 'SensorHumidityTC_3', 'SensorHumidityTC_4', 'SensorHumidityTC_5', 'SensorHumidityTC_6', 'SensorHumidityTC_7', 'SensorHumidityTC_8', 'SensorVOC_1', 'SensorVOC_2', 'SensorVOC_3', 'SensorVOC_4', 'SensorVOC_5', 'SensorVOC_6', 'SensorVOC_7', 'SensorVOC_8');
 
         foreach ($dataAR as $dataARsub) {
             foreach ($dataARsub['varIdentAR'] as $varIdent) {
@@ -2207,8 +2207,8 @@ class HELIOS extends IPSModule
         $VarProfileName = 'HELIOS.Bypass';
         if (IPS_VariableProfileExists($VarProfileName) === false) {
             IPS_CreateVariableProfile($VarProfileName, 0);
-            IPS_SetVariableProfileAssociation($VarProfileName, 0, $this->Translate('Closed'), '', -1);
-            IPS_SetVariableProfileAssociation($VarProfileName, 1, $this->Translate('Open'), '', -1);
+            IPS_SetVariableProfileAssociation($VarProfileName, 0, $this->Translate('Closed'), '', 0x00FF00);
+            IPS_SetVariableProfileAssociation($VarProfileName, 1, $this->Translate('Open'), '', 0xFF0000);
             IPS_SetVariableProfileIcon($VarProfileName, 'Link');
         }
 
@@ -2236,8 +2236,8 @@ class HELIOS extends IPSModule
         $VarProfileName = 'HELIOS.DefrostState';
         if (IPS_VariableProfileExists($VarProfileName) === false) {
             IPS_CreateVariableProfile($VarProfileName, 0);
-            IPS_SetVariableProfileAssociation($VarProfileName, 0, $this->Translate('Inactive'), '', -1);
-            IPS_SetVariableProfileAssociation($VarProfileName, 1, $this->Translate('Active'), '', 0x00FF00);
+            IPS_SetVariableProfileAssociation($VarProfileName, 0, $this->Translate('Inactive'), '', 0x00FF00);
+            IPS_SetVariableProfileAssociation($VarProfileName, 1, $this->Translate('Active'), '', 0xFF0000);
             IPS_SetVariableProfileIcon($VarProfileName, 'Snowflake');
         }
 
@@ -2930,7 +2930,7 @@ class HELIOS extends IPSModule
         $result = NULL;
         if ($filterInterval !== NULL) {
             $filterIntervalHours = $filterInterval * 30 * 24 * 60;
-            $postData = 'v01034=1&v01033='.$filterIntervalHours;
+            $postData = 'v01034=1&v01033=' . $filterIntervalHours;
 
             $result = $this->FunctionHelperSETcustom('gear.htm', $postData);
             IPS_Sleep(2000);
