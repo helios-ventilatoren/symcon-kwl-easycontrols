@@ -286,7 +286,9 @@ trait HelperVariables
         $VarID = @$this->GetIDForIdent($varIdent);
         if ($VarID > 0) {
             if (IPS_VariableExists($VarID) === false) {
-                $this->SendDebug(__FUNCTION__, $this->Translate('INFO') . ' // ' . $this->Translate('Variable with ID ') . '"' . $VarID . '"' . $this->Translate(' does not exist'), 0);
+                if ($this->ReadPropertyBoolean('debug') === true) {
+                    $this->SendDebug(__FUNCTION__, $this->Translate('INFO') . ' // ' . $this->Translate('Variable with ID ') . '"' . $VarID . '"' . $this->Translate(' does not exist'), 0);
+                }
                 return false;
             }
             $this->UnregisterVariable($varIdent);
