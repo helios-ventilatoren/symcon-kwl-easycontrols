@@ -103,5 +103,3 @@ trait HelperBuffer
         return $result;
     }
 }
-
-?>

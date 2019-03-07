@@ -72,5 +72,3 @@ trait HelperDebug
         }
     }
 }
-
-?>

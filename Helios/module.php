@@ -123,11 +123,19 @@ class HELIOS extends IPSModule
             return parent::Destroy();
         }
 
+        $removeVarProfiles = false;
         $ModuleInstancesAR = IPS_GetInstanceListByModuleID('{889DFBC4-09A6-4D77-9928-738E5D494362}');
         if (@array_key_exists('0', $ModuleInstancesAR) === false) {
+            $removeVarProfiles = true;
+        } else {
+            if ((@array_key_exists('1', $ModuleInstancesAR) === false) && ($ModuleInstancesAR[0] === $this->InstanceID)) {
+                $removeVarProfiles = true;
+            }
+        }
+        if ($removeVarProfiles === true) {
             $VarProfilesAR = array('HELIOS.Bypass', 'HELIOS.CO2VOC.ppm', 'HELIOS.Days', 'HELIOS.DefrostState', 'HELIOS.ErrorNoYes', 'HELIOS.FanLevel', 'HELIOS.FanSpeedRPM', 'HELIOS.FanLevelPercent', 'HELIOS.Filter.Months', 'HELIOS.HeatRecoveryEfficiency', 'HELIOS.Mode', 'HELIOS.ModeDuration', 'HELIOS.ModeIntervalTime', 'HELIOS.ModeActivationPeriod', 'HELIOS.OperatingModeRemainingTime', 'HELIOS.ModeVacationProgram', 'HELIOS.OperatingHours', 'HELIOS.OperatingMode', 'HELIOS.PreAfterheater.Perc.Float', 'HELIOS.PreAfterheater.Perc.Int', 'HELIOS.PreAfterheaterState', 'HELIOS.RelativeHumidity', 'HELIOS.ResetAction', 'HELIOS.StateSwitch', 'HELIOS.Temperature.Indoor', 'HELIOS.Temperature.Outdoor', 'HELIOS.VOCCO2HUMControl', 'HELIOS.WeekProgram');
-            foreach ($VarProfilesAR as $VarProfilNameDEL) {
-                @IPS_DeleteVariableProfile($VarProfilNameDEL);
+            foreach ($VarProfilesAR as $VarProfileNameDEL) {
+                @IPS_DeleteVariableProfile($VarProfileNameDEL);
             }
         }
 
@@ -182,6 +190,11 @@ class HELIOS extends IPSModule
             if ($this->MediaObject_Create() === true) {
                 $this->DeviceImage_Get();
             }
+
+            // Un/Register references
+            $this->UnregisterReferences();
+            $this->RegisterReference_Property('smtpinstance_id');
+            $this->RegisterReference_Property('notifscript_id');
 
             // Start timers
             $this->Timer_Control('Update_BasicInfo', 1);
@@ -904,7 +917,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 06.03.2019 - 16:30 #####"},
+		{ "type": "Label", "label": "##### 07.03.2019 - 17:00 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -980,9 +993,9 @@ class HELIOS extends IPSModule
 		{ "type": "Label", "label": "___________________________________________________________________________" },
 		{ "type": "Button", "label": "Send Test-Notification", "onClick": "HELIOS_Notification_Test($id);" },
 		{ "type": "Label", "label": "___________________________________________________________________________" },
-		{ "type": "Button", "caption": "Module Documentation", "onClick": "echo \'https://www.bayaro.net\'" },
-		{ "type": "Button", "caption": "www.heliosventilatoren.de", "onClick": "echo \'https://www.heliosventilatoren.de\'" },
-		{ "type": "Button", "caption": "www.bayaro.net", "onClick": "echo \'https://www.bayaro.net\'" }
+		{ "type": "Button", "caption": "Module Documentation", "onClick": "echo \'https://www.bayaro.net\';" },
+		{ "type": "Button", "caption": "www.heliosventilatoren.de", "onClick": "echo \'https://www.heliosventilatoren.de\';" },
+		{ "type": "Button", "caption": "www.bayaro.net", "onClick": "echo \'https://www.bayaro.net\';" }
 
 	],
 	"status":
@@ -1706,12 +1719,17 @@ class HELIOS extends IPSModule
         if ($varUpdate === true) {
             $this->SetValue_IfDifferent('OperatingMode', $result);
 
+            $varID = @$this->GetIDForIdent('OperatingModeRemainingTime');
             if (($modeRemainingTime === 0) || ($modeRemainingTime === false)) {
                 $this->SetValue_IfDifferent('OperatingModeRemainingTime', 0);
-                IPS_SetHidden($this->GetIDForIdent('OperatingModeRemainingTime'), true);
+                if (IPS_VariableExists($varID) === true) {
+                    IPS_SetHidden($varID, true);
+                }
             } else {
                 $this->SetValue_IfDifferent('OperatingModeRemainingTime', $modeRemainingTime);
-                IPS_SetHidden($this->GetIDForIdent('OperatingModeRemainingTime'), false);
+                if (IPS_VariableExists($varID) === true) {
+                    IPS_SetHidden($varID, false);
+                }
             }
         }
 
@@ -4715,5 +4733,3 @@ class HELIOS extends IPSModule
         return false;
     }
 }
-
-?>

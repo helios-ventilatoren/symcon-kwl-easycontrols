@@ -381,5 +381,3 @@ if(!defined('IS_EBASE')) {
 if(!defined('IS_NOTCREATED')) {
     define('IS_NOTCREATED', IS_EBASE + 1);
 }
-
-?>

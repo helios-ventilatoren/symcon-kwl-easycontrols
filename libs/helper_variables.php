@@ -48,6 +48,31 @@ trait HelperVariables
     }
 
 
+    protected function RegisterReference($objectID)
+    {
+        $this->LogMessage('RegisterReference 1 // objectID = ' .$objectID, KL_NOTIFY);
+
+        if (IPS_GetKernelVersion() >= 5.1) {
+            $this->LogMessage('RegisterReference 2 // objectID = ' .$objectID, KL_NOTIFY);
+            parent::RegisterReference($objectID);
+        }
+    }
+
+
+    protected function RegisterReference_Property($propertyName)
+    {
+        $objectID = $this->ReadPropertyInteger($propertyName);
+        $this->LogMessage("RegisterReference_Property 1 // propertyName = ".$propertyName, KL_NOTIFY);
+
+        if ($objectID > 0) {
+            $this->LogMessage("RegisterReference_Property 2 // propertyName = ".$propertyName, KL_NOTIFY);
+            $this->RegisterReference($objectID);
+        }
+
+        return true;
+    }
+
+
     /**
      * SetValue (set variable to new value, no matter whether the new value is the same or different)
      *
@@ -119,9 +144,11 @@ trait HelperVariables
         $VarID = @$this->GetIDForIdent($varIdent);
 
         if ($VarID > 0) {
-            if ($this->GetValue($varIdent) != $value) {
-                $this->SetValue($varIdent, $value);
-                return true;
+            if (IPS_VariableExists($VarID) === true) {
+                if ($this->GetValue($varIdent) != $value) {
+                    $this->SetValue($varIdent, $value);
+                    return true;
+                }
             }
         }
 
@@ -177,6 +204,25 @@ trait HelperVariables
     }
 
 
+    protected function UnregisterReference($objectID)
+    {
+        if (method_exists('IPSModule', 'UnregisterReference ') === true) {
+            parent::UnregisterReference($objectID);
+        }
+    }
+
+
+    protected function UnregisterReferences()
+    {
+        if (method_exists($this, 'GetReferenceList')) {
+            $refs = $this->GetReferenceList();
+            foreach ($refs as $ref) {
+                $this->UnregisterReference($ref);
+            }
+        }
+    }
+
+
     /**
      * Variable_Register (register and create variable with some parameters)
      *
@@ -197,36 +243,40 @@ trait HelperVariables
             $positionX = $position;
         }
 
+        $varID = 0;
         switch ($varType) {
             case 0:
-                $this->RegisterVariableBoolean($varIdent, $varName, $varProfile, $positionX);
+                $varID = $this->RegisterVariableBoolean($varIdent, $varName, $varProfile, $positionX);
                 break;
 
             case 1:
-                $this->RegisterVariableInteger($varIdent, $varName, $varProfile, $positionX);
+                $varID = $this->RegisterVariableInteger($varIdent, $varName, $varProfile, $positionX);
                 break;
 
             case 2:
-                $this->RegisterVariableFloat($varIdent, $varName, $varProfile, $positionX);
+                $varID = $this->RegisterVariableFloat($varIdent, $varName, $varProfile, $positionX);
                 break;
 
             case 3:
-                $this->RegisterVariableString($varIdent, $varName, $varProfile, $positionX);
+                $varID = $this->RegisterVariableString($varIdent, $varName, $varProfile, $positionX);
                 break;
         }
 
-        $VarID = $this->GetIDForIdent($varIdent);
+        if ($varID > 0) {
 
-        if ($varIcon !== '') {
-            IPS_SetIcon($VarID, $varIcon);
-        }
+            if ($varIcon !== '') {
+                IPS_SetIcon($varID, $varIcon);
+            }
 
-        IPS_SetPosition($VarID, $positionX);
+            if ($position !== false) {
+                IPS_SetPosition($varID, $positionX);
+            }
 
-        IPS_SetHidden($VarID, $hide);
+            IPS_SetHidden($varID, $hide);
 
-        if ($enableAction === true) {
-            $this->EnableAction($varIdent);
+            if ($enableAction === true) {
+                $this->EnableAction($varIdent);
+            }
         }
     }
 
@@ -253,5 +303,3 @@ trait HelperVariables
         return false;
     }
 }
-
-?>
