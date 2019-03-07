@@ -50,10 +50,7 @@ trait HelperVariables
 
     protected function RegisterReference($objectID)
     {
-        $this->LogMessage('RegisterReference 1 // objectID = ' .$objectID, KL_NOTIFY);
-
         if (IPS_GetKernelVersion() >= 5.1) {
-            $this->LogMessage('RegisterReference 2 // objectID = ' .$objectID, KL_NOTIFY);
             parent::RegisterReference($objectID);
         }
     }
@@ -62,10 +59,7 @@ trait HelperVariables
     protected function RegisterReference_Property($propertyName)
     {
         $objectID = $this->ReadPropertyInteger($propertyName);
-        $this->LogMessage("RegisterReference_Property 1 // propertyName = ".$propertyName, KL_NOTIFY);
-
         if ($objectID > 0) {
-            $this->LogMessage("RegisterReference_Property 2 // propertyName = ".$propertyName, KL_NOTIFY);
             $this->RegisterReference($objectID);
         }
 
