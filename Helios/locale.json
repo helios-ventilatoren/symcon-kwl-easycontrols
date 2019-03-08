@@ -32,6 +32,7 @@
             "Fan levels": "Lüferstufen",
             "Number of error/info/warning messages": "Anzahl der Fehler-/Info-/Warnungs-Meldungen",
             "Pre-/Afterheater (actual power and heat output delivered)": "Vor-/Nachheizung (aktuelle und abgegebene Leistung)",
+            "Other (Bypass, Defrost)": "Sonstiges (Bypass, Frostschutz)",
             "WebFront instance used to send push messages (valid IPS subscription required):": "WebFront Instanz zum Senden von Push-Benachrichtigungen (gültige IPS-Subskription erforderlich):",
             "WebFront-Instance": "WebFront-Instanz",
             "Push notification": "Push-Benachrichtigung",

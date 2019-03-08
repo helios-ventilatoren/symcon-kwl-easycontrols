@@ -58,6 +58,7 @@ class HELIOS extends IPSModule
         $this->RegisterPropertyBoolean('log_messagecount', false);
         $this->RegisterPropertyBoolean('log_heatrecoveryefficiency', false);
         $this->RegisterPropertyBoolean('log_preafterheater', false);
+        $this->RegisterPropertyBoolean('log_other', false);
         $this->RegisterPropertyInteger('webfrontinstance_id', 0);
         $this->RegisterPropertyInteger('smtpinstance_id', 0);
         $this->RegisterPropertyInteger('notifscript_id', 0);
@@ -917,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 07.03.2019 - 22:00 #####"},
+		{ "type": "Label", "label": "##### 08.03.2019 - 17:00 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -957,6 +958,7 @@ class HELIOS extends IPSModule
 		{ "type": "CheckBox", "name": "log_messagecount", "caption": "Number of error/info/warning messages" },
 		{ "type": "CheckBox", "name": "log_heatrecoveryefficiency", "caption": "Heat recovery efficiency" },
 		{ "type": "CheckBox", "name": "log_preafterheater", "caption": "Pre-/Afterheater (actual power and heat output delivered)" },
+		{ "type": "CheckBox", "name": "log_other", "caption": "Other (Bypass, Defrost)" },
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
         { "type": "Label", "label": "WebFront instance used to send push messages (valid IPS subscription required):" },
         { "type": "SelectInstance", "name": "webfrontinstance_id", "caption": "WebFront-Instance" },
@@ -1050,6 +1052,7 @@ class HELIOS extends IPSModule
         $dataAR['log_messagecount']['enableLogging'] = $this->ReadPropertyBoolean('log_messagecount');
         $dataAR['log_operatingmode']['enableLogging'] = $this->ReadPropertyBoolean('log_operatingmode');
         $dataAR['log_operatinghours']['enableLogging'] = $this->ReadPropertyBoolean('log_operatinghours');
+        $dataAR['log_other']['enableLogging'] = $this->ReadPropertyBoolean('log_other');
         $dataAR['log_preafterheater']['enableLogging'] = $this->ReadPropertyBoolean('log_preafterheater');
         $dataAR['log_sensors']['enableLogging'] = $this->ReadPropertyBoolean('log_sensors');
 
@@ -1059,6 +1062,7 @@ class HELIOS extends IPSModule
         $dataAR['log_messagecount']['varIdentAR'] = array('SystemErrorCount', 'SystemInfoCount', 'SystemWarningCount');
         $dataAR['log_operatingmode']['varIdentAR'] = array('OperatingMode');
         $dataAR['log_operatinghours']['varIdentAR'] = array('OperatingHours', 'OperatingHoursExtractAirFan', 'OperatingHoursPreheater', 'OperatingHoursAfterheater', 'OperatingHoursSupplyAirFan');
+        $dataAR['log_other']['varIdentAR'] = array('Bypass', 'DefrostStateHeatExchanger', 'DefrostStateHotWaterRegister');
         $dataAR['log_preafterheater']['varIdentAR'] = array('AfterheaterState', 'PreheaterState');
         $dataAR['log_sensors']['varIdentAR'] = array('TemperatureOutdoorAir', 'TemperatureSupplyAir', 'TemperatureExhaustAir', 'TemperatureExtractAir', 'TemperatureDuctOutdoorAir', 'TemperatureDuctSupplyAir', 'TemperatureReturnWWRegister', 'SensorCO2_1', 'SensorCO2_2', 'SensorCO2_3', 'SensorCO2_4', 'SensorCO2_5', 'SensorCO2_6', 'SensorCO2_7', 'SensorCO2_8', 'SensorHumidityRH_1', 'SensorHumidityRH_2', 'SensorHumidityRH_3', 'SensorHumidityRH_4', 'SensorHumidityRH_5', 'SensorHumidityRH_6', 'SensorHumidityRH_7', 'SensorHumidityRH_8', 'SensorHumidityTC_1', 'SensorHumidityTC_2', 'SensorHumidityTC_3', 'SensorHumidityTC_4', 'SensorHumidityTC_5', 'SensorHumidityTC_6', 'SensorHumidityTC_7', 'SensorHumidityTC_8', 'SensorVOC_1', 'SensorVOC_2', 'SensorVOC_3', 'SensorVOC_4', 'SensorVOC_5', 'SensorVOC_6', 'SensorVOC_7', 'SensorVOC_8');
 
@@ -1066,7 +1070,9 @@ class HELIOS extends IPSModule
             foreach ($dataARsub['varIdentAR'] as $varIdent) {
                 $varID = @$this->GetIDForIdent($varIdent);
                 if ($varID > 0) {
-                    @AC_SetLoggingStatus($ArchiveHandlerID, $varID, $dataARsub['enableLogging']);
+                    if (IPS_VariableExists($varID) === true) {
+                        @AC_SetLoggingStatus($ArchiveHandlerID, $varID, $dataARsub['enableLogging']);
+                    }
                 }
             }
         }
