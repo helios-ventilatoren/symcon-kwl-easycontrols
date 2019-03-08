@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 08.03.2019 - 18:45 #####"},
+		{ "type": "Label", "label": "##### 08.03.2019 - 19:30 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -2974,7 +2974,9 @@ class HELIOS extends IPSModule
         if (($temp_supplyair !== false) && ($temp_outsideair !== false) && ($temp_extractedair !== false)) {
             $heatRecoveryEfficiency = round(($temp_supplyair - $temp_outsideair) / ($temp_extractedair - $temp_outsideair) * 100);
 
-            $this->SetValue_IfDifferent('HeatRecoveryEfficiency', $heatRecoveryEfficiency);
+            if ($this->FanLevel_Get() > 0) {
+                $this->SetValue_IfDifferent('HeatRecoveryEfficiency', $heatRecoveryEfficiency);
+            }
 
             return $heatRecoveryEfficiency;
         }
