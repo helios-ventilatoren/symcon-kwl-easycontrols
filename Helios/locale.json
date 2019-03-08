@@ -223,6 +223,7 @@
             "Afterheater - Actual power": "Nachheizung - Aktuelle Leistung",
             "Afterheater - Heat output delivered": "Nachheizung - Abgegebene Heizleistung",
             "Implausible data - abort": "Unplausible Daten - Abbruch",
+            "System - Data exchange message": "System - Datenaustausch-Meldung",
             "System - Error": "System - Fehler",
             "System - Info": "System - Info",
             "System - Warning": "System - Warnung",
