@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 08.03.2019 - 17:45 #####"},
+		{ "type": "Label", "label": "##### 08.03.2019 - 18:45 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -2958,7 +2958,6 @@ class HELIOS extends IPSModule
         $temp_outsideair = false;
         $temp_supplyair = false;
         $temp_extractedair = false;
-        $temp_exhaustair = false;
 
         $TempSensorsAR = $this->Temperature_Sensors_All_Get();
 
@@ -2970,9 +2969,6 @@ class HELIOS extends IPSModule
         }
         if (@array_key_exists('Value_C', $TempSensorsAR[3]) === true) {
             $temp_extractedair = $TempSensorsAR[3]['Value_C'];
-        }
-        if (@array_key_exists('Value_C', $TempSensorsAR[4]) === true) {
-            $temp_exhaustair = $TempSensorsAR[4]['Value_C'];
         }
 
         if (($temp_supplyair !== false) && ($temp_outsideair !== false) && ($temp_extractedair !== false)) {
@@ -3697,6 +3693,8 @@ class HELIOS extends IPSModule
 
         if ($data !== NULL) {
 
+            $boolValue = false;
+
             $textBitAR[0] = $this->Translate('No error');
             $textBitAR[1] = $this->Translate('Reserved');
             $textBitAR[2] = $this->Translate('DNS server not found (No internet?)');
@@ -3709,6 +3707,7 @@ class HELIOS extends IPSModule
             $textBitAR[9] = $this->Translate('Error during copy operation');
 
             $data = (int)$data;
+
             if (($data >= 0) && ($data <= 9)) {
                 $resultAR = array();
                 for ($i = 0; $i <= 9; $i++) {
@@ -3719,6 +3718,10 @@ class HELIOS extends IPSModule
                     }
                 }
 
+                if ($data >= 2) {
+                    $boolValue = true;
+                }
+
                 $HTMLtable = $this->Messages_HTML_Generate($resultAR, 'Web-' . $this->Translate('Error'));
 
                 if ($DebugActive === true) {
@@ -3726,15 +3729,12 @@ class HELIOS extends IPSModule
                     $this->SendDebug(__FUNCTION__, 'DEBUG // HTML = ' . $HTMLtable, 0);
                 }
 
-                if ($data >= 1) {
-                    $this->SetValue_IfDifferent('SystemDataExchangeMsg', true);
-                }
-
+                $this->SetValue_IfDifferent('SystemDataExchangeMsg', $boolValue);
                 $this->SetValue_IfDifferent('SystemMsgsHTMLDataExchange', $HTMLtable);
                 return $resultAR;
             }
 
-            $this->SetValue_IfDifferent('SystemDataExchangeMsg', false);
+            $this->SetValue_IfDifferent('SystemDataExchangeMsg', $boolValue);
         }
 
         return false;
