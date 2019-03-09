@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 08.03.2019 - 19:30 #####"},
+		{ "type": "Label", "label": "##### 09.03.2019 - 11:15 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -2313,7 +2313,6 @@ class HELIOS extends IPSModule
         $VarProfileName = 'HELIOS.HeatRecoveryEfficiency';
         if (IPS_VariableProfileExists($VarProfileName) === false) {
             IPS_CreateVariableProfile($VarProfileName, 1);
-            IPS_SetVariableProfileDigits($VarProfileName, 1);
             IPS_SetVariableProfileValues($VarProfileName, 0, 150, 1);
             IPS_SetVariableProfileText($VarProfileName, '', ' %');
             IPS_SetVariableProfileIcon($VarProfileName, 'Information');
@@ -2972,16 +2971,21 @@ class HELIOS extends IPSModule
         }
 
         if (($temp_supplyair !== false) && ($temp_outsideair !== false) && ($temp_extractedair !== false)) {
-            $heatRecoveryEfficiency = round(($temp_supplyair - $temp_outsideair) / ($temp_extractedair - $temp_outsideair) * 100);
+            if ($temp_extractedair - $temp_outsideair !== 0.0) {
+                $heatRecoveryEfficiency = ($temp_supplyair - $temp_outsideair) / ($temp_extractedair - $temp_outsideair) * 100;
 
-            if ($this->FanLevel_Get() > 0) {
-                $this->SetValue_IfDifferent('HeatRecoveryEfficiency', $heatRecoveryEfficiency);
+                if ($heatRecoveryEfficiency >= 0) {
+                    if ($this->FanLevel_Get() > 0) {
+                        $heatRecoveryEfficiency = round($heatRecoveryEfficiency);
+                        $this->SetValue_IfDifferent('HeatRecoveryEfficiency', $heatRecoveryEfficiency);
+                        return $heatRecoveryEfficiency;
+                    }
+                }
             }
-
-            return $heatRecoveryEfficiency;
+            $this->SendDebug(__FUNCTION__, 'INFO // ' . $this->Translate('Something went wrong... The result is an invalid value or division by 0'), 0);
+        } else {
+            $this->SendDebug(__FUNCTION__, 'INFO // ' . $this->Translate('Not all necessary temperature sensors are connected to the system. The following temperature sensors are required to calculate the heat recovery efficiency: outside air, supply air, extracted air'), 0);
         }
-
-        $this->SendDebug(__FUNCTION__, 'INFO // ' . $this->Translate('Not all necessary temperature sensors are connected to the system. The following temperature sensors are required to calculate the heat recovery efficiency: outside air, supply air, exhaust air'), 0);
 
         return false;
     }
