@@ -3,10 +3,10 @@
 	"author": "Christoph Bach (Bayaro)",
 	"name": "Helios",
 	"url": "https://www.heliosventilatoren.de",
-        "compatibility": {
-            "version": "4.3"
-        },
-        "version": "0.9",
-        "build": 0,
-        "date": 0
+	"compatibility": {
+		"version": "4.3"
+	},
+	"version": "0.9",
+	"build": 0,
+	"date": 0
 }

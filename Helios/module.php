@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 09.03.2019 - 11:15 #####"},
+		{ "type": "Label", "label": "##### 16.03.2019 - 20:30 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1959,7 +1959,7 @@ class HELIOS extends IPSModule
 
         $timeDiff_Now_Specific = $timeSpecific->getTimestamp() - $timeNow;
 
-        return $timeDiff_Now_Specific * 1000;
+        return $timeDiff_Now_Specific;
     }
 
 
@@ -2075,7 +2075,7 @@ class HELIOS extends IPSModule
         $this->SetValue_ToDefaultOnce('OperatingModePresetVacationProgram', 'Attr_OperatingModePresetVacationProgram');
         $this->Variable_Register('OperatingModePresetVacationFanLevel', $this->Translate('Operating mode preset') . ' - ' . $this->Translate('Vacation') . ' - ' . $this->Translate('Fan level'), 'HELIOS.FanLevel', '', 1, true);
         $this->SetValue_ToDefaultOnce('OperatingModePresetVacationFanLevel', 'Attr_OperatingModePresetVacationFanLevel');
-        $this->Variable_Register('OperatingModePresetVacationDateStart', $this->Translate('Operating mode preset') . ' - ' . $this->Translate('Vacation') . ' - ' . $this->Translate('Date start'), '~UnixTimestampDate', 'Calendar', 1, true);
+        $this->Variable_Register('OperatingModePresetVacationDateStart', $this->Translate('Operating mode preset') . ' - ' . $this->Translate('Vacation') . ' - ' . $this->Translate('Date begin'), '~UnixTimestampDate', 'Calendar', 1, true);
         $this->SetValue_ToDefaultOnce('OperatingModePresetVacationDateStart', 'Attr_OperatingModePresetVacationDateStart');
         $this->Variable_Register('OperatingModePresetVacationDateEnd', $this->Translate('Operating mode preset') . ' - ' . $this->Translate('Vacation') . ' - ' . $this->Translate('Date end'), '~UnixTimestampDate', 'Calendar', 1, true);
         $this->SetValue_ToDefaultOnce('OperatingModePresetVacationDateEnd', 'Attr_OperatingModePresetVacationDateEnd');
@@ -3186,8 +3186,7 @@ class HELIOS extends IPSModule
         }
 
         // Activate mode
-        $durationRoundTo5 = round($duration / 5) * 5;
-        $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $durationRoundTo5 . '&' . $vID_Mode . '=1';
+        $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $duration . '&' . $vID_Mode . '=1';
         $result = $this->FunctionHelperSETcustom('party.htm', $postData);
         IPS_Sleep(2000);
         $this->OperatingMode_Get();
@@ -3462,8 +3461,7 @@ class HELIOS extends IPSModule
         }
 
         // Activate mode
-        $durationRoundTo5 = round($duration / 5) * 5;
-        $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $durationRoundTo5 . '&' . $vID_Mode . '=1';
+        $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $duration . '&' . $vID_Mode . '=1';
         $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
         IPS_Sleep(2000);
         $this->OperatingMode_Get();

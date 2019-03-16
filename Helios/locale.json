@@ -195,7 +195,7 @@
             "Party": "Party",
             "Whisper": "Ruhe",
             "Vacation": "Urlaub",
-            "Date start": "Datum Start",
+            "Date begin": "Datum Beginn",
             "Date end": "Datum Ende",
             "The end date is before the start date - processing is canceled": "Das End-Datum liegt vor dem Start-Datum - Bearbeitung wird abgebrochen",
             "The start date is in the past - processing is canceled": "Das Start-Datum liegt in der Vergangenheit - Bearbeitung wird abgebrochen",
