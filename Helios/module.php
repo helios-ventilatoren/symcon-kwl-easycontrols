@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 20.03.2019 - 18:55 #####"},
+		{ "type": "Label", "label": "##### 20.03.2019 - 19:05 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1739,7 +1739,6 @@ class HELIOS extends IPSModule
             }
         }
 
-        $this->FanLevel_Get();
         $this->FanLevel_Percent_Get();
         $this->FanSpeed_ExhaustAir_Get();
         $this->FanSpeed_SupplyAir_Get();
@@ -2809,6 +2808,7 @@ class HELIOS extends IPSModule
             IPS_Sleep(1000);
             $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             IPS_Sleep(1000);
+            $this->FanLevel_Get();
             $this->OperatingMode_Get();
             return $result_fanlevel;
         }
@@ -2829,6 +2829,7 @@ class HELIOS extends IPSModule
             IPS_Sleep(1000);
             $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             IPS_Sleep(1000);
+            $this->FanLevel_Get();
             $this->OperatingMode_Get();
 
             // Start timer with for given period
@@ -3149,6 +3150,7 @@ class HELIOS extends IPSModule
             $postData = $vID_Duration . '=0&' . $vID_Mode . '=0';
             $result = $this->FunctionHelperSETcustom('party.htm', $postData);
             IPS_Sleep(2000);
+            $this->FanLevel_Get();
             $this->OperatingMode_Get();
 
             return $result;
@@ -3192,6 +3194,7 @@ class HELIOS extends IPSModule
         $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $duration . '&' . $vID_Mode . '=1';
         $result = $this->FunctionHelperSETcustom('party.htm', $postData);
         IPS_Sleep(2000);
+        $this->FanLevel_Get();
         $this->OperatingMode_Get();
 
         return $result;
@@ -3298,6 +3301,7 @@ class HELIOS extends IPSModule
             $postData = $vID_Mode . '=0';
             $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
             IPS_Sleep(2000);
+            $this->FanLevel_Get();
             $this->OperatingMode_Get();
 
             return $result;
@@ -3360,6 +3364,7 @@ class HELIOS extends IPSModule
         }
         $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
         IPS_Sleep(2000);
+        $this->FanLevel_Get();
         $this->OperatingMode_Get();
 
         return $result;
@@ -3424,6 +3429,7 @@ class HELIOS extends IPSModule
             $postData = $vID_Duration . '=0&' . $vID_Mode . '=0';
             $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
             IPS_Sleep(2000);
+            $this->FanLevel_Get();
             $this->OperatingMode_Get();
 
             return $result;
@@ -3467,6 +3473,7 @@ class HELIOS extends IPSModule
         $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $duration . '&' . $vID_Mode . '=1';
         $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
         IPS_Sleep(2000);
+        $this->FanLevel_Get();
         $this->OperatingMode_Get();
 
         return $result;
