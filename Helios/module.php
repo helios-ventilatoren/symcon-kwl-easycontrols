@@ -3632,6 +3632,7 @@ class HELIOS extends IPSModule
                 $dateFormat = 'dd.mm.yyyy';
             }
             $this->SetBuffer('DateFormat', $dateFormat);
+            $result = $dateFormat;
         }
 
         return $result;
