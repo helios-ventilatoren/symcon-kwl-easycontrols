@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 16.03.2019 - 20:30 #####"},
+		{ "type": "Label", "label": "##### 20.03.2019 - 18:20 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -3349,11 +3349,11 @@ class HELIOS extends IPSModule
         // Activate mode
         $postData = '';
         if ($program === 1) {
-            $postData = $vID_Mode . '=1&' . $vID_FanLevel . '=' . $fanlevel . '&' . $vID_DateStart . '=' . $dateStart . '&' . $vID_DateEnd . '=' . $dateEnd . '&' . $vID_IntervalTime . '=' . $intervalTime . '&' . $vID_activationPeriod . '=' . $activationPeriod;
+            $postData = $vID_Mode . '=1&' . $vID_FanLevel . '=' . $fanlevel . '&' . $vID_DateStart . '=' . $dateStart . '&' . $vID_DateEnd . '=' . $dateEnd . '&' . $vID_IntervalTime . '=' . $intervalTime . '&' . $vID_activationPeriod . '=' . $activationPeriod.'&v01050=2&v01051=2';
         } elseif ($program === 2) {
             $aw_IntervalTime = $this->FunctionHelperGET($vID_IntervalTime, __FUNCTION__, true);
             $aw_ActivationPeriod = $this->FunctionHelperGET($vID_activationPeriod, __FUNCTION__, true);
-            $postData = $vID_Mode . '=2&' . $vID_FanLevel . '=' . $fanlevel . '&' . $vID_DateStart . '=' . $dateStart . '&' . $vID_DateEnd . '=' . $dateEnd . '&' . $vID_IntervalTime . '=' . $aw_IntervalTime . '&' . $vID_activationPeriod . '=' . $aw_ActivationPeriod;
+            $postData = $vID_Mode . '=2&' . $vID_FanLevel . '=' . $fanlevel . '&' . $vID_DateStart . '=' . $dateStart . '&' . $vID_DateEnd . '=' . $dateEnd . '&' . $vID_IntervalTime . '=' . $aw_IntervalTime . '&' . $vID_activationPeriod . '=' . $aw_ActivationPeriod.'&v01050=2&v01051=2';
         }
         $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
         IPS_Sleep(2000);
