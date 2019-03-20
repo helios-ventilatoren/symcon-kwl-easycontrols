@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 20.03.2019 - 18:30 #####"},
+		{ "type": "Label", "label": "##### 20.03.2019 - 18:55 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1738,6 +1738,11 @@ class HELIOS extends IPSModule
                 }
             }
         }
+
+        $this->FanLevel_Get();
+        $this->FanLevel_Percent_Get();
+        $this->FanSpeed_ExhaustAir_Get();
+        $this->FanSpeed_SupplyAir_Get();
 
         return $result;
     }
@@ -2805,7 +2810,6 @@ class HELIOS extends IPSModule
             $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             IPS_Sleep(1000);
             $this->OperatingMode_Get();
-            $this->FanLevel_Percent_Get();
             return $result_fanlevel;
         }
 
@@ -2826,7 +2830,6 @@ class HELIOS extends IPSModule
             $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             IPS_Sleep(1000);
             $this->OperatingMode_Get();
-            $this->FanLevel_Percent_Get();
 
             // Start timer with for given period
             $this->SetBuffer('FanLevel_Period_Seconds', $minutes * 60);
