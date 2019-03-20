@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 20.03.2019 - 18:20 #####"},
+		{ "type": "Label", "label": "##### 20.03.2019 - 18:30 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -3624,7 +3624,14 @@ class HELIOS extends IPSModule
         $result = $this->FunctionHelperGET('v00052', __FUNCTION__, true);
 
         if ($result !== NULL) {
-            $this->SetBuffer('DateFormat', $result);
+            if ($result === '2') {
+                $dateFormat = 'yyyy.mm.dd';
+            } elseif ($result === '1') {
+                $dateFormat = 'mm.dd.yyyy';
+            } else {
+                $dateFormat = 'dd.mm.yyyy';
+            }
+            $this->SetBuffer('DateFormat', $dateFormat);
         }
 
         return $result;
