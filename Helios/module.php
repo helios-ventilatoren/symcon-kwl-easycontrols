@@ -2019,7 +2019,7 @@ class HELIOS extends IPSModule
         $this->Variable_Register('FanLevelPercent', $this->Translate('Fan level') . ' (%)', 'HELIOS.FanLevelPercent', '', 1, false);
         $this->Variable_Register('FilterRemainingTime', $this->Translate('Filter - Remaining time'), 'HELIOS.Days', '', 1, false);
         $this->Variable_Register('FilterRemainingTimeBOOL', $this->Translate('Filter - Change required'), 'HELIOS.ErrorNoYes', '', 0, false);
-        $this->Variable_Register('HeatRecoveryEfficiency', $this->Translate('Heat recovery efficiency'), 'HELIOS.HeatRecoveryEfficiency', '', 1, false);
+        $this->Variable_Register('HeatRecoveryEfficiency', $this->Translate('Heat recovery efficiency').' (%)', 'HELIOS.HeatRecoveryEfficiency', '', 1, false);
         $this->Variable_Register('HumidityControl', $this->Translate('Humidity-Control'), 'HELIOS.VOCCO2HUMControl', '', 1, false);
         $this->Variable_Register('OperatingModeRemainingTime', $this->Translate('Operating mode - Remaining time'), 'HELIOS.OperatingModeRemainingTime', '', 1, false);
         $this->Variable_Register('AfterheaterState', $this->Translate('Afterheater'), 'HELIOS.PreAfterheaterState', '', 0, false);
@@ -2314,7 +2314,7 @@ class HELIOS extends IPSModule
         if (IPS_VariableProfileExists($VarProfileName) === false) {
             IPS_CreateVariableProfile($VarProfileName, 1);
             IPS_SetVariableProfileValues($VarProfileName, 0, 150, 1);
-            IPS_SetVariableProfileText($VarProfileName, '', ' %');
+            IPS_SetVariableProfileText($VarProfileName, '', '');
             IPS_SetVariableProfileIcon($VarProfileName, 'Information');
         }
 
