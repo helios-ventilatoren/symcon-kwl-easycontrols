@@ -110,6 +110,7 @@ class HELIOS extends IPSModule
         $this->RegisterTimer('Update_BasicInfo', 0, 'HELIOS_Timer_Control($_IPS["TARGET"], "Update_BasicInfo", 2);');
         $this->RegisterTimer('Update_Data', 0, 'HELIOS_Timer_Control($_IPS["TARGET"], "Update_Data", 2);');
         $this->RegisterTimer('FanLevel_Period', 0, 'HELIOS_Timer_Control($_IPS["TARGET"], "FanLevel_Period", 2);');
+        $this->RegisterTimer('GetAfterSet', 0, 'HELIOS_Timer_Control($_IPS["TARGET"], "GetAfterSet", 2);');
     }
 
 
@@ -918,7 +919,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 22.03.2019 - 20:00 #####"},
+		{ "type": "Label", "label": "##### 22.03.2019 - 20:30 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1891,6 +1892,8 @@ class HELIOS extends IPSModule
                     $IntervalSeconds = $this->ReadPropertyInteger('timerinterval');
                 } elseif ($TimerName === 'FanLevel_Period') {
                     $IntervalSeconds = $this->GetBuffer('FanLevel_Period_Seconds');
+                } elseif ($TimerName === 'GetAfterSet') {
+                    $IntervalSeconds = 5;
                 }
 
                 if ($IntervalSeconds === 0) {
@@ -1912,6 +1915,13 @@ class HELIOS extends IPSModule
             } elseif ($TimerName === 'FanLevel_Period') {
                 $this->OperatingMode_Set('auto');
                 $this->Timer_Control('FanLevel_Period', 0);
+                $result = true;
+            } elseif ($TimerName === 'GetAfterSet') {
+                $this->FanLevel_Get();
+                $this->FanLevel_Percent_Get();
+                $this->FanSpeed_ExhaustAir_Get();
+                $this->FanSpeed_SupplyAir_Get();
+                $this->Timer_Control('GetAfterSet', 0);
                 $result = true;
             } else {
                 $this->SendDebug(__FUNCTION__, $this->Translate('ERROR // Unknown timer') . ' // Name = ' . $TimerName, 0, KL_ERROR);
@@ -2815,13 +2825,9 @@ class HELIOS extends IPSModule
         if (($fanlevel >= $FanLevelMIN) || ($fanlevel <= $FanLevelMAX)) {
             $this->SetValue_IfDifferent('FanLevel', $fanlevel);
             $this->OperatingMode_Set('manu');
-            IPS_Sleep(1500);
-            $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             IPS_Sleep(2000);
-            $this->FanLevel_Get();
-            $this->FanLevel_Percent_Get();
-            $this->FanSpeed_ExhaustAir_Get();
-            $this->FanSpeed_SupplyAir_Get();
+            $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
+            $this->Timer_Control('GetAfterSet', 1);
             return $result_fanlevel;
         }
 
@@ -2839,19 +2845,14 @@ class HELIOS extends IPSModule
             $this->SetValue_IfDifferent('FanLevel', $fanlevel);
             $this->OperatingMode_Set('manu');
 
-            IPS_Sleep(1000);
+            IPS_Sleep(2000);
 
             $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             // Start timer with for given period
             $this->SetBuffer('FanLevel_Period_Seconds', $minutes * 60);
             $this->Timer_Control('FanLevel_Period', 1);
 
-            IPS_Sleep(1000);
-
-            $this->FanLevel_Get();
-            $this->FanLevel_Percent_Get();
-            $this->FanSpeed_ExhaustAir_Get();
-            $this->FanSpeed_SupplyAir_Get();
+            $this->Timer_Control('GetAfterSet', 1);
 
             return $result_fanlevel;
         }
@@ -3152,11 +3153,7 @@ class HELIOS extends IPSModule
         if ($activate === false) {
             $postData = $vID_Duration . '=0&' . $vID_Mode . '=0';
             $result = $this->FunctionHelperSETcustom('party.htm', $postData);
-            IPS_Sleep(2000);
-            $this->FanLevel_Get();
-            $this->FanLevel_Percent_Get();
-            $this->FanSpeed_ExhaustAir_Get();
-            $this->FanSpeed_SupplyAir_Get();
+            $this->Timer_Control('GetAfterSet', 1);
 
             return $result;
         }
@@ -3198,11 +3195,7 @@ class HELIOS extends IPSModule
         // Activate mode
         $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $duration . '&' . $vID_Mode . '=1';
         $result = $this->FunctionHelperSETcustom('party.htm', $postData);
-        IPS_Sleep(2000);
-        $this->FanLevel_Get();
-        $this->FanLevel_Percent_Get();
-        $this->FanSpeed_ExhaustAir_Get();
-        $this->FanSpeed_SupplyAir_Get();
+        $this->Timer_Control('GetAfterSet', 1);
 
         return $result;
     }
@@ -3307,11 +3300,7 @@ class HELIOS extends IPSModule
         if ($program === 0) {
             $postData = $vID_Mode . '=0';
             $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
-            IPS_Sleep(2000);
-            $this->FanLevel_Get();
-            $this->FanLevel_Percent_Get();
-            $this->FanSpeed_ExhaustAir_Get();
-            $this->FanSpeed_SupplyAir_Get();
+            $this->Timer_Control('GetAfterSet', 1);
 
             return $result;
         }
@@ -3372,11 +3361,7 @@ class HELIOS extends IPSModule
             $postData = $vID_Mode . '=2&' . $vID_FanLevel . '=' . $fanlevel . '&' . $vID_DateStart . '=' . $dateStart . '&' . $vID_DateEnd . '=' . $dateEnd . '&' . $vID_IntervalTime . '=' . $aw_IntervalTime . '&' . $vID_activationPeriod . '=' . $aw_ActivationPeriod.'&v01050=2&v01051=2';
         }
         $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
-        IPS_Sleep(2000);
-        $this->FanLevel_Get();
-        $this->FanLevel_Percent_Get();
-        $this->FanSpeed_ExhaustAir_Get();
-        $this->FanSpeed_SupplyAir_Get();
+        $this->Timer_Control('GetAfterSet', 1);
 
         return $result;
     }
@@ -3439,11 +3424,7 @@ class HELIOS extends IPSModule
         if ($activate === false) {
             $postData = $vID_Duration . '=0&' . $vID_Mode . '=0';
             $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
-            IPS_Sleep(2000);
-            $this->FanLevel_Get();
-            $this->FanLevel_Percent_Get();
-            $this->FanSpeed_ExhaustAir_Get();
-            $this->FanSpeed_SupplyAir_Get();
+            $this->Timer_Control('GetAfterSet', 1);
 
             return $result;
         }
@@ -3485,11 +3466,7 @@ class HELIOS extends IPSModule
         // Activate mode
         $postData = $vID_FanLevel . '=' . $fanlevel . '&' . $vID_Duration . '=' . $duration . '&' . $vID_Mode . '=1';
         $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
-        IPS_Sleep(2000);
-        $this->FanLevel_Get();
-        $this->FanLevel_Percent_Get();
-        $this->FanSpeed_ExhaustAir_Get();
-        $this->FanSpeed_SupplyAir_Get();
+        $this->Timer_Control('GetAfterSet', 1);
 
         return $result;
     }
