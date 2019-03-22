@@ -918,7 +918,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 20.03.2019 - 19:05 #####"},
+		{ "type": "Label", "label": "##### 22.03.2019 - 20:00 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1738,10 +1738,6 @@ class HELIOS extends IPSModule
                 }
             }
         }
-
-        $this->FanLevel_Percent_Get();
-        $this->FanSpeed_ExhaustAir_Get();
-        $this->FanSpeed_SupplyAir_Get();
 
         return $result;
     }
@@ -2797,6 +2793,20 @@ class HELIOS extends IPSModule
     }
 
 
+    public function FanLevel_Percent_Get()
+    {
+        $result = $this->FunctionHelperGET('v00103', __FUNCTION__, true);
+
+        if ($result !== NULL) {
+            $result = (int)$result;
+
+            $this->SetValue_IfDifferent('FanLevelPercent', $result);
+        }
+
+        return $result;
+    }
+
+
     public function FanLevel_Set(int $fanlevel)
     {
         $FanLevelMIN = (int)$this->GetBuffer('FanLevelMIN');
@@ -2805,11 +2815,13 @@ class HELIOS extends IPSModule
         if (($fanlevel >= $FanLevelMIN) || ($fanlevel <= $FanLevelMAX)) {
             $this->SetValue_IfDifferent('FanLevel', $fanlevel);
             $this->OperatingMode_Set('manu');
-            IPS_Sleep(1000);
+            IPS_Sleep(1500);
             $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
-            IPS_Sleep(1000);
+            IPS_Sleep(2000);
             $this->FanLevel_Get();
-            $this->OperatingMode_Get();
+            $this->FanLevel_Percent_Get();
+            $this->FanSpeed_ExhaustAir_Get();
+            $this->FanSpeed_SupplyAir_Get();
             return $result_fanlevel;
         }
 
@@ -2826,35 +2838,26 @@ class HELIOS extends IPSModule
         if (($fanlevel >= $FanLevelMIN) || ($fanlevel <= $FanLevelMAX)) {
             $this->SetValue_IfDifferent('FanLevel', $fanlevel);
             $this->OperatingMode_Set('manu');
-            IPS_Sleep(1000);
-            $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
-            IPS_Sleep(1000);
-            $this->FanLevel_Get();
-            $this->OperatingMode_Get();
 
+            IPS_Sleep(1000);
+
+            $result_fanlevel = $this->FunctionHelperSET('v00102', $fanlevel);
             // Start timer with for given period
             $this->SetBuffer('FanLevel_Period_Seconds', $minutes * 60);
             $this->Timer_Control('FanLevel_Period', 1);
+
+            IPS_Sleep(1000);
+
+            $this->FanLevel_Get();
+            $this->FanLevel_Percent_Get();
+            $this->FanSpeed_ExhaustAir_Get();
+            $this->FanSpeed_SupplyAir_Get();
 
             return $result_fanlevel;
         }
 
         $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0034 // ' . $this->Translate('The defined fan level is lower than the minimum allowed fan level or higher than the maximum possible fan level - processing is aborted') . ' // ' . $this->Translate('Defined fan level') . ' = ' . $fanlevel . ' // ' . $this->Translate('Fan level (min-max)') . ' = ' . $FanLevelMIN . '-' . $FanLevelMAX, 0, KL_ERROR);
         return false;
-    }
-
-
-    public function FanLevel_Percent_Get()
-    {
-        $result = $this->FunctionHelperGET('v00103', __FUNCTION__, true);
-
-        if ($result !== NULL) {
-            $result = (int)$result;
-
-            $this->SetValue_IfDifferent('FanLevelPercent', $result);
-        }
-
-        return $result;
     }
 
 
@@ -3151,7 +3154,9 @@ class HELIOS extends IPSModule
             $result = $this->FunctionHelperSETcustom('party.htm', $postData);
             IPS_Sleep(2000);
             $this->FanLevel_Get();
-            $this->OperatingMode_Get();
+            $this->FanLevel_Percent_Get();
+            $this->FanSpeed_ExhaustAir_Get();
+            $this->FanSpeed_SupplyAir_Get();
 
             return $result;
         }
@@ -3195,7 +3200,9 @@ class HELIOS extends IPSModule
         $result = $this->FunctionHelperSETcustom('party.htm', $postData);
         IPS_Sleep(2000);
         $this->FanLevel_Get();
-        $this->OperatingMode_Get();
+        $this->FanLevel_Percent_Get();
+        $this->FanSpeed_ExhaustAir_Get();
+        $this->FanSpeed_SupplyAir_Get();
 
         return $result;
     }
@@ -3302,7 +3309,9 @@ class HELIOS extends IPSModule
             $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
             IPS_Sleep(2000);
             $this->FanLevel_Get();
-            $this->OperatingMode_Get();
+            $this->FanLevel_Percent_Get();
+            $this->FanSpeed_ExhaustAir_Get();
+            $this->FanSpeed_SupplyAir_Get();
 
             return $result;
         }
@@ -3365,7 +3374,9 @@ class HELIOS extends IPSModule
         $result = $this->FunctionHelperSETcustom('urlaub.htm', $postData);
         IPS_Sleep(2000);
         $this->FanLevel_Get();
-        $this->OperatingMode_Get();
+        $this->FanLevel_Percent_Get();
+        $this->FanSpeed_ExhaustAir_Get();
+        $this->FanSpeed_SupplyAir_Get();
 
         return $result;
     }
@@ -3430,7 +3441,9 @@ class HELIOS extends IPSModule
             $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
             IPS_Sleep(2000);
             $this->FanLevel_Get();
-            $this->OperatingMode_Get();
+            $this->FanLevel_Percent_Get();
+            $this->FanSpeed_ExhaustAir_Get();
+            $this->FanSpeed_SupplyAir_Get();
 
             return $result;
         }
@@ -3474,7 +3487,9 @@ class HELIOS extends IPSModule
         $result = $this->FunctionHelperSETcustom('ruhe.htm', $postData);
         IPS_Sleep(2000);
         $this->FanLevel_Get();
-        $this->OperatingMode_Get();
+        $this->FanLevel_Percent_Get();
+        $this->FanSpeed_ExhaustAir_Get();
+        $this->FanSpeed_SupplyAir_Get();
 
         return $result;
     }
