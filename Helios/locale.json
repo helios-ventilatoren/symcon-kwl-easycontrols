@@ -331,7 +331,11 @@
             "Locking the control unit": "Bedienteil sperren",
             "Master Password required (wrong password entered too often)": "Master Passwort notwendig (zu oft falsches Passwort eingegeben)",
             "Fan level display in % on": "Anzeige der Lüfterstufe in % ein",
-            "Internal humidity sensor is missing or is not sending data": "Interner Feuchtesensor fehlt oder sendet keine Daten"
+            "Internal humidity sensor is missing or is not sending data": "Interner Feuchtesensor fehlt oder sendet keine Daten",
+            "Timer has been stopped": "Timer wurde angehalten",
+            "Timer has been started": "Timer wurde gestartet",
+            "Functions were called": "Funktionen wurden aufgerufen",
+            "is invalid": "ist ungültig"
         }
     }
 }

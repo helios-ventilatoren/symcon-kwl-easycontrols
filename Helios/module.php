@@ -69,7 +69,7 @@ class HELIOS extends IPSModule
         $this->RegisterPropertyBoolean('notif_sel_warnings', false);
         $this->RegisterPropertyBoolean('notif_sel_filter', false);
         $this->RegisterPropertyBoolean('pingcheckdisabled', false);
-        $this->RegisterPropertyBoolean('debug', true);
+        $this->RegisterPropertyBoolean('debug', false);
 
         if (IPS_GetKernelVersion() >= 5.1) {
             $this->RegisterAttributeString('language', '');
@@ -919,7 +919,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 22.03.2019 - 20:45 #####"},
+		{ "type": "Label", "label": "##### 22.03.2019 - 21:15 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
