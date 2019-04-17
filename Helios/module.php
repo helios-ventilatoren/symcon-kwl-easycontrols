@@ -919,7 +919,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 22.03.2019 - 21:15 #####"},
+		{ "type": "Label", "label": "##### 17.04.2019 - 12:30 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1062,7 +1062,8 @@ class HELIOS extends IPSModule
         $dataAR['log_heatrecoveryefficiency']['varIdentAR'] = array('HeatRecoveryEfficiency');
         $dataAR['log_messagecount']['varIdentAR'] = array('SystemErrorCount', 'SystemInfoCount', 'SystemWarningCount');
         $dataAR['log_operatingmode']['varIdentAR'] = array('OperatingMode');
-        $dataAR['log_operatinghours']['varIdentAR'] = array('OperatingHours', 'OperatingHoursExtractAirFan', 'OperatingHoursPreheater', 'OperatingHoursAfterheater', 'OperatingHoursSupplyAirFan');
+        //$dataAR['log_operatinghours']['varIdentAR'] = array('OperatingHours', 'OperatingHoursExtractAirFan', 'OperatingHoursPreheater', 'OperatingHoursAfterheater', 'OperatingHoursSupplyAirFan');    // REVIEW - wenn der wert "OperatingHours" nirgends anders zu finden ist - aus modul entfernen
+        $dataAR['log_operatinghours']['varIdentAR'] = array('OperatingHoursExtractAirFan', 'OperatingHoursPreheater', 'OperatingHoursAfterheater', 'OperatingHoursSupplyAirFan');    // REVIEW - wenn der wert "OperatingHours" nirgends anders zu finden ist - aus modul entfernen
         $dataAR['log_other']['varIdentAR'] = array('Bypass', 'DefrostStateHeatExchanger', 'DefrostStateHotWaterRegister');
         $dataAR['log_preafterheater']['varIdentAR'] = array('AfterheaterState', 'PreheaterState');
         $dataAR['log_sensors']['varIdentAR'] = array('TemperatureOutdoorAir', 'TemperatureSupplyAir', 'TemperatureExhaustAir', 'TemperatureExtractAir', 'TemperatureDuctOutdoorAir', 'TemperatureDuctSupplyAir', 'TemperatureReturnWWRegister', 'SensorCO2_1', 'SensorCO2_2', 'SensorCO2_3', 'SensorCO2_4', 'SensorCO2_5', 'SensorCO2_6', 'SensorCO2_7', 'SensorCO2_8', 'SensorHumidityRH_1', 'SensorHumidityRH_2', 'SensorHumidityRH_3', 'SensorHumidityRH_4', 'SensorHumidityRH_5', 'SensorHumidityRH_6', 'SensorHumidityRH_7', 'SensorHumidityRH_8', 'SensorHumidityTC_1', 'SensorHumidityTC_2', 'SensorHumidityTC_3', 'SensorHumidityTC_4', 'SensorHumidityTC_5', 'SensorHumidityTC_6', 'SensorHumidityTC_7', 'SensorHumidityTC_8', 'SensorVOC_1', 'SensorVOC_2', 'SensorVOC_3', 'SensorVOC_4', 'SensorVOC_5', 'SensorVOC_6', 'SensorVOC_7', 'SensorVOC_8');
@@ -2008,7 +2009,7 @@ class HELIOS extends IPSModule
         }
         if ($this->ReadPropertyBoolean('show_devicesysteminformation') === true) {
             $this->Variable_Register('DeviceType', $this->Translate('Device-Type'), '', 'Information', 3, false);
-            $this->Variable_Register('OperatingHours', $this->Translate('Operating hours') . ' - System', 'HELIOS.OperatingHours', '', 1, false);
+            //$this->Variable_Register('OperatingHours', $this->Translate('Operating hours') . ' - System', 'HELIOS.OperatingHours', '', 1, false);  // REVIEW - wenn der wert nirgends anders zu finden ist - aus modul entfernen
             $this->Variable_Register('ProductionCode', $this->Translate('Production-Code'), '', 'Information', 3, false);
             $this->Variable_Register('SecurityNumber', $this->Translate('Security-Number'), '', 'Information', 3, false);
             $this->Variable_Register('SerialNumber', $this->Translate('Serial-Number'), '', 'Information', 3, false);
@@ -2572,7 +2573,11 @@ class HELIOS extends IPSModule
                 if ($result2 == 0) {
                     $result = 0;
                 } else {
-                    $result = round(((float)$result2 / (float)$result1) * 100, 1);
+                    // For "matching values" perform the calculation as in easyControls - less accurate
+                    $result1 = round((float)$result1, 1);
+                    $result2 = (int)$result2;
+                    $result = round($result2 / $result1 * 100, 1);
+                    //$result = round(((float)$result2 / (float)$result1) * 100, 1); // For "matching values" perform the calculation as in easyControls - less accurate
                 }
 
                 $this->SetValue_IfDifferent('AfterheaterHeatOutputDelivered', $result);
@@ -3538,7 +3543,11 @@ class HELIOS extends IPSModule
                 if ($result2 == 0) {
                     $result = 0;
                 } else {
-                    $result = round(((float)$result2 / (float)$result1) * 100, 1);
+                    // For "matching values" perform the calculation as in easyControls - less accurate
+                    $result1 = round((float)$result1, 1);
+                    $result2 = (int)$result2;
+                    $result = round($result2 / $result1 * 100, 1);
+                    //$result = round(((float)$result2 / (float)$result1) * 100, 1); // For "matching values" perform the calculation as in easyControls - less accurate
                 }
 
                 $this->SetValue_IfDifferent('PreheaterHeatOutputDelivered', $result);
@@ -4202,6 +4211,7 @@ class HELIOS extends IPSModule
     }
 
 
+    /*    // REVIEW - wenn der wert nirgends anders zu finden ist - aus modul entfernen
     public function System_OperatingHours_System_Get()
     {
         $result = $this->FunctionHelperGET('v01102', __FUNCTION__, true);
@@ -4214,6 +4224,7 @@ class HELIOS extends IPSModule
 
         return $result;
     }
+    */
 
 
     public function System_OrderNumber_Get()
@@ -4627,7 +4638,7 @@ class HELIOS extends IPSModule
             $resultAR['Messages']['Status'] = $this->System_Messages_Status_Get();
             $resultAR['Messages']['Warning'] = $this->System_Messages_Warning_Get();
             $resultAR['Messages']['WarningCount'] = $this->System_Messages_WarningCount_Get();
-            $resultAR['OperatingHoursSystem'] = $this->System_OperatingHours_System_Get();
+            //$resultAR['OperatingHoursSystem'] = $this->System_OperatingHours_System_Get();  // REVIEW - wenn der wert nicht noch woanders zu finden ist - aus modul löschen
             $resultAR['ProductionCode'] = $this->System_ProductionCode_Get();
             $resultAR['SecurityNumber'] = $this->System_SecurityNumber_Get();
             $resultAR['SensorControlSleepMode']['State'] = $this->System_SensorControlSleepMode_Get();
