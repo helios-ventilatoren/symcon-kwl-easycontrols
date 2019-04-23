@@ -919,7 +919,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 17.04.2019 - 12:30 #####"},
+		{ "type": "Label", "label": "##### 23.04.2019 - 12:50 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -4148,7 +4148,7 @@ class HELIOS extends IPSModule
             return false;
         }
 
-        $result = $this->FunctionHelperGET('v01105', __FUNCTION__, true);
+        $result = $this->FunctionHelperGET('v01106', __FUNCTION__, true);
 
         if ($result !== NULL) {
             $result = (int)$result / 60;
