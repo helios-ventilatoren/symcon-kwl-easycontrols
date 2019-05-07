@@ -392,7 +392,7 @@ class HELIOS extends IPSModule
         if ($this->ReadPropertyBoolean('pingcheckdisabled') === false) {
             if (@Sys_Ping($this->ReadPropertyString('deviceip'), 3000) === false) {
                 $this->InstanceStatus_Set_IfDifferent(206);
-                $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0012 // ' . $this->Translate('Ping failed //No network connection to easyControls'), 0, KL_ERROR);
+                $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0014 // ' . $this->Translate('Ping failed // easyControls is not accessible via the network'), 0, KL_ERROR);
                 return false;
             }
             $this->InstanceStatus_Set_IfDifferent(102);
@@ -471,8 +471,8 @@ class HELIOS extends IPSModule
         if ($this->ReadPropertyBoolean('pingcheckdisabled') === false) {
             if (@Sys_Ping($host, 3000) === false) {
                 $this->InstanceStatus_Set_IfDifferent(206);
-                $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0012 // ' . $this->Translate('Ping failed // easyControls is not accessible via the network'), 0, KL_ERROR);
-                IPS_LogMessage('easyControls--' . __FUNCTION__, $this->Translate('ERROR') . ' // 0x0012 // ' . $this->Translate('Ping failed // easyControls is not accessible via the network'));
+                $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0014 // ' . $this->Translate('Ping failed // easyControls is not accessible via the network'), 0, KL_ERROR);
+                IPS_LogMessage('easyControls--' . __FUNCTION__, $this->Translate('ERROR') . ' // 0x0014 // ' . $this->Translate('Ping failed // easyControls is not accessible via the network'));
                 return false;
             }
             $this->InstanceStatus_Set_IfDifferent(102);
@@ -1016,7 +1016,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 07.05.2019 - 21:15 #####"},
+		{ "type": "Label", "label": "##### 07.05.2019 - 21:45 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
