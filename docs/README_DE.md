@@ -44,10 +44,10 @@ Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.helio
 <br><br>
 ## 2. Technische-Details
 **Verwendete GUID:**
-| Modul                | Prefix | GUID                                   |
-| -------------------- | ------ | -------------------------------------- |
-| Modul                |        | {859431EC-ED2E-457A-A528-FD6E9C927D66} |
-| Geräte-Instanz       | HELIOS | {889DFBC4-09A6-4D77-9928-738E5D494362} |
+| Modul              | Prefix  | GUID                                    |
+| :----------------- | :------ | :-------------------------------------- |
+| Modul              | ******  | {859431EC-ED2E-457A-A528-FD6E9C927D66}  |
+| Geräte-Instanz     | HELIOS  | {889DFBC4-09A6-4D77-9928-738E5D494362}  |
 
 
 <br><br>
