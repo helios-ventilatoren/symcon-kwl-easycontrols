@@ -43,7 +43,7 @@ Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.helio
 
 <br><br>
 ## 2. Technische-Details
-####Verwendete GUID:
+#### Verwendete GUID:
 | Modul              | Prefix  | GUID                                    |
 | :----------------- | :------ | :-------------------------------------- |
 | Modul              | *       | {859431EC-ED2E-457A-A528-FD6E9C927D66}  |
