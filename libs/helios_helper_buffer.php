@@ -1,6 +1,6 @@
 <?php
 
-trait HelperBuffer
+trait HeliosHelperBuffer
 {
 
     /**

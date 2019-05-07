@@ -1,16 +1,16 @@
 <?php
 
-require_once __DIR__ . '/../libs/helper_buffer.php';
-require_once __DIR__ . '/../libs/helper_constants.php';
-require_once __DIR__ . '/../libs/helper_debug.php';
-require_once __DIR__ . '/../libs/helper_variables.php';
+require_once __DIR__ . '/../libs/helios_helper_buffer.php';
+require_once __DIR__ . '/../libs/helios_helper_constants.php';
+require_once __DIR__ . '/../libs/helios_helper_debug.php';
+require_once __DIR__ . '/../libs/helios_helper_variables.php';
 
 
 if (!defined('CURLTIMEOUTCONNECTMS')) {
     define('CURLTIMEOUTCONNECTMS', 3000);
 }
 if (!defined('CURLTIMEOUTMS')) {
-    define('CURLTIMEOUTMS', 8000);
+    define('CURLTIMEOUTMS', 9000);
 }
 if (!defined('CURLUSERAGENT')) {
     define('CURLUSERAGENT', 'IP-Symcon_' . IPS_GetKernelVersion() . '_' . IPS_GetKernelPlatform() . '_' . IPS_GetKernelRevision());
@@ -19,7 +19,7 @@ if (!defined('CURLUSERAGENT')) {
 
 class HELIOS extends IPSModule
 {
-    use HelperBuffer, HelperDebug, HelperVariables;
+    use HeliosHelperBuffer, HeliosHelperDebug, HeliosHelperVariables;
 
 
     /**
@@ -210,8 +210,15 @@ class HELIOS extends IPSModule
     }
 
 
+
     /*** FUNCTIONS FOR INTERNAL USE ***************************************************************************/
 
+    /**
+     * BasicInit (determine the basis data of the connected device for further use)
+     *
+     * @param $return
+     * @return array|false
+     */
     private function BasicInit($return = false)
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -250,6 +257,11 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * Buffer_FillFromAttributes (when starting the system, fill the buffer from attribute values)
+     *
+     * @return true
+     */
     private function Buffer_FillFromAttributes()
     {
         if (IPS_GetKernelVersion() >= 5.1) {
@@ -266,6 +278,12 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * Convert_ColorDECtoRGB (convert color selection via color picker in module instance from Integer to RGB values)
+     *
+     * @param $dec
+     * @return array
+     */
     private function Convert_ColorDECtoRGB($dec)
     {
         $hex = ($dec === 0 ? '0' : '');
@@ -289,6 +307,11 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * ConfigCheck (checking the module instance configuration/inputs for plausibility and validity)
+     *
+     * @return bool
+     */
     private function ConfigCheck()
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -356,6 +379,12 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * curl_GET (retrieve data via curl from connected device)
+     *
+     * @param $url
+     * @return bool
+     */
     private function curl_GET($url)
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -425,6 +454,14 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * curl_POST (send data via curl to connected device)
+     *
+     * @param $postData
+     * @param $refererURL
+     * @param $xml
+     * @return bool
+     */
     private function curl_POST($postData, $refererURL, $xml = false)
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -525,6 +562,12 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * Data_Combine (combines 2 separate arrays with data and text into one array)
+     *
+     * @param $RawAR
+     * @return array
+     */
     private function Data_Combine($RawAR)
     {
         $lang = $this->GetBuffer('language');
@@ -589,6 +632,12 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * Data_Get_LabDlXML
+     *
+     * @param $requestData
+     * @return bool
+     */
     private function Data_Get_LabDlXML($requestData)
     {
         $host = $this->ReadPropertyString('deviceip');
@@ -608,6 +657,12 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * Data_Get_Werte
+     *
+     * @param $file
+     * @return mixed|false
+     */
     private function Data_Get_Werte($file)
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -630,10 +685,16 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * Data_List_All
+     *
+     * @return array|false
+     */
     private function Data_List_All()
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
 
+        $time_start_code = 0;
         if ($DebugActive === true) {
             $time_start_code = microtime(true);
         }
@@ -741,6 +802,8 @@ class HELIOS extends IPSModule
 
 
     /**
+     * FanLevel_Range_Determine
+     *
      * @return array|false
      */
     private function FanLevel_Range_Determine()
@@ -771,6 +834,12 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * FeatureCheck
+     *
+     * @param $id
+     * @return bool
+     */
     private function FeatureCheck($id)
     {
         $dataAR = $this->Search_DataAR($id, 'ID');
@@ -795,10 +864,16 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * File_Cache
+     *
+     * @param $fileName
+     * @param $fileContent
+     * @param $milliseconds
+     * @return bool
+     */
     private function File_Cache($fileName, $fileContent = false, $milliseconds = false)
     {
-        $DebugActive = $this->ReadPropertyBoolean('debug');
-
         $fileBufferTS = (float)$this->GetBufferX($fileName . '_TS');
         if (($fileContent === false) && ($fileBufferTS > 0)) {
             if (microtime(true) <= $fileBufferTS) {
@@ -819,6 +894,14 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * FunctionHelperGET
+     *
+     * @param $id
+     * @param $function
+     * @param $liveQuery
+     * @return string|NULL
+     */
     private function FunctionHelperGET($id, $function, $liveQuery = false)
     {
         if ($liveQuery === true) {
@@ -869,6 +952,13 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * FunctionHelperSET
+     *
+     * @param $vID
+     * @param $value
+     * @return array|false
+     */
     private function FunctionHelperSET($vID, $value)
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -890,6 +980,13 @@ class HELIOS extends IPSModule
     }
 
 
+    /**
+     * FunctionHelperSETcustom
+     *
+     * @param $fileName
+     * @param $postData
+     * @return array|false
+     */
     private function FunctionHelperSETcustom($fileName, $postData)
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
@@ -919,7 +1016,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 23.04.2019 - 12:50 #####"},
+		{ "type": "Label", "label": "##### 07.05.2019 - 21:15 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1323,6 +1420,31 @@ class HELIOS extends IPSModule
                     }
 
                     return $text;
+                }
+            }
+        } else {
+            $this->BasicInit();
+
+            $dataAR = $this->GetBufferX('MultiBuffer_KWLdataAR_combined');
+
+            if (@count($dataAR) > 0) {
+                $keyFound = @array_search($id, array_column($dataAR, 'ID'), true);
+                if ($keyFound !== false) {
+                    if (@array_key_exists('Text', $dataAR[$keyFound]) === true) {
+                        $text = $dataAR[$keyFound]['Text'];
+
+                        // If present - remove the sensor number from the beginning of the string
+                        preg_match('|^(\d\s)(.*)|', $text, $textMatch);
+                        if (@array_key_exists('2', $textMatch) === true) {
+                            $text = $textMatch[2];
+                        }
+
+                        if ($DebugActive === true) {
+                            $this->SendDebug(__FUNCTION__, 'ID = ' . $id . ' // Text = ' . $text, 0);
+                        }
+
+                        return $text;
+                    }
                 }
             }
         }
@@ -1977,9 +2099,7 @@ class HELIOS extends IPSModule
             $timeSpecific->modify('+1 day');
         }
 
-        $timeDiff_Now_Specific = $timeSpecific->getTimestamp() - $timeNow;
-
-        return $timeDiff_Now_Specific;
+        return $timeSpecific->getTimestamp() - $timeNow;
     }
 
 
@@ -2666,7 +2786,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // 0 = aus, 1 = stufig, 2 = stufenlos
     public function CO2Control_Set(int $value)
     {
         $vID = 'v00037';
@@ -2681,7 +2800,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // number = 1 bis 8
     public function CO2Sensor_Get(int $number)
     {
         if ($number === 1) {
@@ -3027,7 +3145,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // 0 = aus, 1 = stufig, 2 = stufenlos
     public function HumidityControl_Set(int $value)
     {
         $vID = 'v00033';
@@ -3068,7 +3185,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // 0 = aus, 1 = stufenlos
     public function HumidityControl_Internal_Set(bool $value)
     {
         $vID = 'v02142';
@@ -3083,7 +3199,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // number = 1 bis 8
     public function HumiditySensor_Get(int $number)
     {
         if ($number === 1) {
@@ -3296,15 +3411,6 @@ class HELIOS extends IPSModule
 
     public function OperatingMode_Vacation_Set(int $program, int $fanlevel, string $dateStart, string $dateEnd, int $intervalTime, int $activationPeriod)
     {
-        // URLAUB
-        // program = 0 Aus, 1 Intervall, 2 Konstant  // v00601
-        // type = 0 Ab-/Zuluft (Lüfterstufe einstellbar) , 1 Zuluft (Lüfterstufe fest auf 2) , 2 Abluft (Lüfterstufe fest auf 2)
-        // fanlevel = allgemein min und max // v00602
-        // dateStart = DD.MM.YYYY oder MM.DD.YYYY oder YYYY.MM.DD // v00603
-        // dateEnd = DD.MM.YYYY oder MM.DD.YYYY oder YYYY.MM.DD // v00604
-        // intervalTime = 1 bis 24 (stunden) // v00605  >> nur bei Programm "Intervall" verfügbar
-        // activationPeriod = 5 bis 300 (minuten) // v00606  >> nur bei Programm "Intervall" verfügbar
-
         $vID_Mode = 'v00601';
         $vID_FanLevel = 'v00602';
         $vID_DateStart = 'v00603';
@@ -4011,14 +4117,18 @@ class HELIOS extends IPSModule
                         }
 
                         if ($binEntry === '1') {
-                            if (@array_key_exists('1', $textBitAR[$index]) === true) {
-                                $resultAR[$index + 1] = $textBitAR[$index][1];
+                            if (@is_string($textBitAR[$index]) === false) {
+                                if (@array_key_exists('1', $textBitAR[$index]) === true) {
+                                    $resultAR[$index + 1] = $textBitAR[$index][1];
+                                }
                             } else {
                                 $resultAR[$index + 1] = $textBitAR[$index];
                             }
                         } else {
-                            if (@array_key_exists('0', $textBitAR[$index]) === true) {
-                                $resultAR[$index + 1] = $textBitAR[$index][0];
+                            if (@is_string($textBitAR[$index]) === false) {
+                                if (@array_key_exists('0', $textBitAR[$index]) === true) {
+                                    $resultAR[$index + 1] = $textBitAR[$index][0];
+                                }
                             } else {
                                 $resultAR[$index + 1] = '';
                             }
@@ -4209,22 +4319,6 @@ class HELIOS extends IPSModule
 
         return $result;
     }
-
-
-    /*    // REVIEW - wenn der wert nirgends anders zu finden ist - aus modul entfernen
-    public function System_OperatingHours_System_Get()
-    {
-        $result = $this->FunctionHelperGET('v01102', __FUNCTION__, true);
-
-        if ($result !== NULL) {
-            $result = (int)$result;
-
-            $this->SetValue_IfDifferent('OperatingHours', $result);
-        }
-
-        return $result;
-    }
-    */
 
 
     public function System_OrderNumber_Get()
@@ -4484,7 +4578,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // number = 1 bis 7
     public function Temperature_Sensor_Get(int $number)
     {
         $sensors_vID_AR = array();
@@ -4550,6 +4643,7 @@ class HELIOS extends IPSModule
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
 
+        $time_start_code = 0;
         if ($DebugActive === true) {
             $time_start_code = microtime(true);
         }
@@ -4613,6 +4707,7 @@ class HELIOS extends IPSModule
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
 
+        $time_start_code = 0;
         if ($DebugActive === true) {
             $time_start_code = microtime(true);
         }
@@ -4638,7 +4733,6 @@ class HELIOS extends IPSModule
             $resultAR['Messages']['Status'] = $this->System_Messages_Status_Get();
             $resultAR['Messages']['Warning'] = $this->System_Messages_Warning_Get();
             $resultAR['Messages']['WarningCount'] = $this->System_Messages_WarningCount_Get();
-            //$resultAR['OperatingHoursSystem'] = $this->System_OperatingHours_System_Get();  // REVIEW - wenn der wert nicht noch woanders zu finden ist - aus modul löschen
             $resultAR['ProductionCode'] = $this->System_ProductionCode_Get();
             $resultAR['SecurityNumber'] = $this->System_SecurityNumber_Get();
             $resultAR['SensorControlSleepMode']['State'] = $this->System_SensorControlSleepMode_Get();
@@ -4686,7 +4780,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // 0 = aus, 1 = stufig, 2 = stufenlos
     public function VOCControl_Set(int $value)
     {
         $vID = 'v00040';
@@ -4701,7 +4794,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // number = 1 bis 8
     public function VOCSensor_Get(int $number)
     {
         if ($number === 1) {
@@ -4768,7 +4860,6 @@ class HELIOS extends IPSModule
     }
 
 
-    // 0 = Standard 1, 1 = Standard 2, 2 = Standard 3, 3 = Benutzerdefiniert 1, 4 = Benutzerdefiniert 2, 5 = Aus
     public function WeekProgram_Set(int $value)
     {
         $vID = 'v00901';

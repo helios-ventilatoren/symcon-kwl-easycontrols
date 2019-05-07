@@ -1,6 +1,6 @@
 <?php
 
-trait HelperVariables
+trait HeliosHelperVariables
 {
     /**
      * RegisterObjectMedia (creating a boolean variable profile with given parameters)

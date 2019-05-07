@@ -1,6 +1,6 @@
 <?php
 
-trait HelperDebug
+trait HeliosHelperDebug
 {
     /**
      * SendDebug (extend "SendDebug" by further output options)
