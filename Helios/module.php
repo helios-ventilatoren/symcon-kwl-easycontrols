@@ -1016,7 +1016,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 07.05.2019 - 21:45 #####"},
+		{ "type": "Label", "label": "##### 12.05.2019 - 17:00 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -2193,10 +2193,10 @@ class HELIOS extends IPSModule
         }
         if ($this->FunctionHelperGET('v02152', __FUNCTION__) === '1') {
             $this->Variable_Register('HumidityControlInternal', $this->Translate('Humidity-Control (internal)'), 'HELIOS.HumidityControlInternal', '', 0, true);
-            $this->Variable_Register('HumidityControlInternalExtractAir', $this->Translate('Humidity-Control (internal - extract air)'), 'HELIOS.Intensity0100', '', 1, false);
+            $this->Variable_Register('HumidityControlInternalExhaustAir', $this->Translate('Humidity-Control (internal - exhaust air)'), 'HELIOS.Intensity0100', '', 1, false);
         } else {
             $this->Variable_Unregister('HumidityControlInternal');
-            $this->Variable_Unregister('HumidityControlInternalExtractAir');
+            $this->Variable_Unregister('HumidityControlInternalExhaustAir');
         }
         $this->Variable_Register('ErrorMsgsReset', $this->Translate('Error messages - Reset'), 'HELIOS.ResetAction', '', 0, true);
         $this->Variable_Register('FanLevel', $this->Translate('Fan level'), 'HELIOS.FanLevel', '', 1, true);
@@ -3178,7 +3178,7 @@ class HELIOS extends IPSModule
 
         if ($result !== NULL) {
             $result = (int)$result;
-            $this->SetValue_IfDifferent('HumidityControlInternalExtractAir', $result);
+            $this->SetValue_IfDifferent('HumidityControlInternalExhaustAir', $result);
         }
 
         return $result;
@@ -3233,8 +3233,8 @@ class HELIOS extends IPSModule
 
             $dataTC = $this->FunctionHelperGET($vID2, __FUNCTION__, true);
             if ($dataTC !== NULL) {
-                $resultAR['TemperatureCelcius'] = (float)$dataTC;
-                $this->SetValue_IfDifferent('SensorHumidityTC_' . $number, $resultAR['TemperatureCelcius']);
+                $resultAR['TemperatureCelsius'] = (float)$dataTC;
+                $this->SetValue_IfDifferent('SensorHumidityTC_' . $number, $resultAR['TemperatureCelsius']);
             }
         }
 
@@ -3244,10 +3244,10 @@ class HELIOS extends IPSModule
         if (@array_key_exists('RelativeHumidity', $resultAR) === false) {
             $resultAR['RelativeHumidity'] = false;
         }
-        if (@array_key_exists('TemperatureCelcius', $resultAR) === false) {
-            $resultAR['TemperatureCelcius'] = false;
+        if (@array_key_exists('TemperatureCelsius', $resultAR) === false) {
+            $resultAR['TemperatureCelsius'] = false;
         }
-        if (($resultAR['RelativeHumidity'] !== false) || ($resultAR['TemperatureCelcius'] !== false)) {
+        if (($resultAR['RelativeHumidity'] !== false) || ($resultAR['TemperatureCelsius'] !== false)) {
             return $resultAR;
         }
 
@@ -4670,7 +4670,7 @@ class HELIOS extends IPSModule
         }
         $resultAR['HumidityControl'] = $this->HumidityControl_Get();
         $resultAR['HumidityControlInternal'] = $this->HumidityControl_Internal_Get();
-        $resultAR['HumidityControlInternalExtractAir'] = $this->HumidityControl_Internal_ExhaustAir_Get();
+        $resultAR['HumidityControlInternalExhaustAir'] = $this->HumidityControl_Internal_ExhaustAir_Get();
         $resultAR['HumiditySensors'] = $this->HumiditySensors_All_Get();
         $resultAR['OperatingModeRemainingMinutes'] = $this->OperatingMode_RemainingMinutes_Get();
         $resultAR['OperationMode'] = $this->OperatingMode_Get();

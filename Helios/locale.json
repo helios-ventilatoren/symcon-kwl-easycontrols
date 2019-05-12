@@ -181,7 +181,7 @@
             "Heat recovery efficiency": "Rückwärmezahl",
             "Humidity-Control": "Feuchte-Steuerung",
             "Humidity-Control (internal)": "Feuchte-Steuerung (intern)",
-            "Humidity-Control (internal - extract air)": "Feuchte-Steuerung (intern - Abluft)",
+            "Humidity-Control (internal - exhaust air)": "Feuchte-Steuerung (intern - Abluft)",
             "VOC-Control": "VOC-Steuerung",
             "Week program": "Wochenprogramm",
             "Software-Version": "Software-Version",

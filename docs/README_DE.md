@@ -23,7 +23,8 @@
 
 <br><br>
 ## 1. Funktionsumfang
-Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.heliosventilatoren.de/de/) Lüftungsanlagen mit [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).
+Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.heliosventilatoren.de/de/) KWL Lüftungsanlagen mit [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
+Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetverbindung mit dem Helios Cloud-Portal (www.easycontrols.net) erforderlich. Die Kommunikation erfolgt direkt mit der easyControls Steuerung der Lüftungsanlage im lokalen Netzwerk, ohne Helios Cloud-Portal.<br><br> 
 
 **Einstellungsmöglichkeiten in der Modul-Instanz:**
 - Geräte IP
@@ -53,7 +54,7 @@ Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.helio
 <br><br>
 ## 3. Systemanforderungen
 - IP-Symcon ab Version 4.3
-- Helios Lüftungsanlage mit easyControls
+- Helios KWL Lüftungsanlage mit easyControls Steuerung
 
 
 <br><br>
@@ -238,8 +239,7 @@ Liest die aktuelle Einstellung der internen Feuchte-Steuerung aus (sofern in der
 ```php
     HELIOS_HumidityControl_Internal_ExhaustAir_Get(int $InstanceID);
 ```
-???<br><br>  
-
+Liest den aktuellen Wert der relativen Luftfeuchtigkeit im Abluft-Kanal aus und gibt diesen Wert als Integer (0-100% rH) zurück.<br><br>  
 
 ```php
     HELIOS_HumidityControl_Internal_Set(int $InstanceID, int $value);
