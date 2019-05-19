@@ -17,10 +17,10 @@
 2. [Technische-Details](#2-technische-details)
 3. [Systemanforderungen](#3-systemanforderungen)
 4. [Installation](#4-installation)
-5. [Befehlsreferenz](#5-bedienungsinformationen)<br>
-5.1. [Hinweise zu technischen Änderungen an der Lüftungsanlage](#51-hinweise-zu-technischen-nderungen-an-der-lftungsanlagebr)<br>
-5.2. [Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogrammebr)<br>
-5.3. [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr)
+5. [Bedienungsinformationen](#5-bedienungsinformationen)<br>
+5.1. [Hinweise zu technischen Änderungen an der Lüftungsanlage](#51-hinweise-zu-technischen-änderungen-an-der-lüftungsanlage)<br>
+5.2. [Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogramme)<br>
+5.3. [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrols)
 6. [Befehlsreferenz](#6-befehlsreferenz) 
 7. [Changelog](#7-changelog)
 
