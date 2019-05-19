@@ -15,10 +15,14 @@
 
 1. [Funktionsumfang](#1-funktionsumfang) 
 2. [Technische-Details](#2-technische-details)
-3. [Systemanforderungen](#2-systemanforderungen)
-4. [Installation](#3-installation)
-5. [Befehlsreferenz](#4-befehlsreferenz)
-6. [Changelog](#5-changelog) 
+3. [Systemanforderungen](#3-systemanforderungen)
+4. [Installation](#4-installation)
+5. [Befehlsreferenz](#5-bedienungsinformationen)<br>
+5.1. [Hinweise zu technischen Änderungen an der Lüftungsanlage](#51-hinweise-zu-technischen-nderungen-an-der-lftungsanlagebr)<br>
+5.2. [Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogrammebr)<br>
+5.3. [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr)
+6. [Befehlsreferenz](#6-befehlsreferenz) 
+7. [Changelog](#7-changelog)
 
 
 <br><br>
@@ -71,9 +75,20 @@ Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetve
 
 <br><br>
 ## 5. Bedienungsinformationen
-##### Hinweise zu Voreinstellungs-Variablen der Kurzprogramme:<br>
+##### 5.1 Hinweise zu technischen Änderungen an der Lüftungsanlage:<br>
+- Wenn an der Lüftungsanlage technische Änderungen vorgenommen werden (z.B. neue Sensoren verbaut oder Sensoren abgebaut), dann muss in der Modul-Instanz im IP-Symcon eine Änderung vorgenommen werden (z.B. einen Haken entfernen und direkt wieder setzen) und danach auf "Übernehmen" bzw. "Änderungen Übernehmen" gedrückt werden. Dies ist notwendig, damit das IPS-Modul sich die aktuell verbauten Komponenten neu auslesen kann.
+- Alternativ kann auch das komplette IP-Symcon neu gestartet werden, dabei werden ebenfalls die aktuell verbauten Komponenten der Lüftungsanlage neu ausgelesen.<br><br> 
+
+##### 5.2 Hinweise zu Voreinstellungs-Variablen der Kurzprogramme:<br>
 - Bevor ein Kurzprogramm über WebFront/App aktiviert werden kann, müssen die für das Kurzprogramm gewünschten Einstellungen in den Voreinstellungs-Variablen vornehmen (über WebFront/App möglich)
-- Danach kann das gewünschte Kurzprogramm aktiviert werden (per WebFront/App oder über eine Modul-Funktion in einem eigenen Skript)
+- Danach kann das gewünschte Kurzprogramm aktiviert werden (per WebFront/App oder über eine Modul-Funktion in einem eigenen Skript)<br><br>
+
+##### 5.3 Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls:<br>
+- Das Wochenprogramm in der easyControls Web-Oberfläche und der Wochenplan unterhalb dieses IP-Symcon Moduls arbeiten unabhängig voneinander und sind 2 unterschiedliche Steuerungsmöglichkeiten!
+- Wird der Wochenplan im IP-Symcon aktiviert, dann wird das Wochenprogramm im easyControls automatisch deaktiviert!
+- Wird der Wochenplan im IP-Symcon deaktiviert, dann wird das Wochenprogramm im easyControls nicht automatisch aktiviert!
+- Wird das Wochenprogramm im easyControls aktiviert, dann wird der Wochenplan im IP-Symcon automatisch deaktiviert!
+- Wird das Wochenprogramm im easyControls deaktiviert, dann wird der Wochenplan im IP-Symcon nicht automatisch aktiviert!
 
 
 <br><br>
@@ -514,7 +529,9 @@ Liest die aktuell eingestellte "Start-Zeit" des "Ruhemodus für Fühlerregelung"
 ```php
     HELIOS_System_SensorControlSleepModeFROM_Set(int $InstanceID, string $value);
 ```
-Funktion zum Setzen/Ändern der "Start-Zeit" des "Ruhemodus für Fühlerregelung". Die Zeit muss als String im Format "HH:MM" (z.B. "19:00) übermittelt werden.<br><br>
+Funktion zum Setzen/Ändern der "Start-Zeit" des "Ruhemodus für Fühlerregelung". Die Zeit muss als String im Format "HH:MM" (z.B. "19:00) übermittelt werden.<br>
+- Wird über diese Funktion eine Uhrzeit an easyControls übermittelt, dann wird von easyControls automatisch der "Ruhemodus für Fühlerregelung" aktiviert!<br>
+- Wird sowohl bei dieser Funktion (SensorControlSleepModeFROM) als auch bei der 2. Funktion (SensorControlSleepModeTO) "0:00" übermittelt, wird der "Ruhemodus für Fühlerregelung" von easyControls automatisch deaktiviert.<br><br>
 
 ```php
     HELIOS_System_SensorControlSleepModeTO_Get(int $InstanceID);
@@ -524,7 +541,9 @@ Liest die aktuell eingestellte "Ende-Zeit" des "Ruhemodus für Fühlerregelung" 
 ```php
     HELIOS_System_SensorControlSleepModeTO_Set(int $InstanceID, string $value);
 ```
-Funktion zum Setzen/Ändern der "Ende-Zeit" des "Ruhemodus für Fühlerregelung". Die Zeit muss als String im Format "HH:MM" (z.B. "19:00) übermittelt werden.<br><br>
+Funktion zum Setzen/Ändern der "Ende-Zeit" des "Ruhemodus für Fühlerregelung". Die Zeit muss als String im Format "HH:MM" (z.B. "19:00) übermittelt werden.<br>
+- Wird über diese Funktion eine Uhrzeit an easyControls übermittelt, dann wird von easyControls automatisch der "Ruhemodus für Fühlerregelung" aktiviert!<br>
+- Wird sowohl bei dieser Funktion (SensorControlSleepModeTO) als auch bei der 2. Funktion (SensorControlSleepModeFROM) "0:00" übermittelt, wird der "Ruhemodus für Fühlerregelung" von easyControls automatisch deaktiviert.<br><br>
 
 ```php
     HELIOS_System_SerialNumber_Get(int $InstanceID);

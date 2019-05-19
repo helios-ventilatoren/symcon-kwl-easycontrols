@@ -223,7 +223,7 @@
             "Afterheater": "Nachheizung",
             "Afterheater - Actual power": "Nachheizung - Aktuelle Leistung",
             "Afterheater - Heat output delivered": "Nachheizung - Abgegebene Heizleistung",
-            "Implausible data - abort": "Unplausible Daten - Abbruch",
+            "A calculation is only possible from min. 1 operating hour": "Eine Berechnung ist erst ab min. 1 Betriebsstunde möglich",
             "System - Data exchange message": "System - Datenaustausch-Meldung",
             "System - Error": "System - Fehler",
             "System - Info": "System - Info",

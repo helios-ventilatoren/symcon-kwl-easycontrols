@@ -1016,7 +1016,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 12.05.2019 - 17:00 #####"},
+		{ "type": "Label", "label": "##### 19.05.2019 - 17:00 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -2686,7 +2686,7 @@ class HELIOS extends IPSModule
             $result = NULL;
             if (($result1 !== NULL) && ($result2 !== NULL)) {
                 if ($result1 == 0) {
-                    $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0029 // ' . $this->Translate('Implausible data - abort') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0, KL_ERROR);
+                    $this->SendDebug(__FUNCTION__, $this->Translate('INFO') . ' // ' . $this->Translate('A calculation is only possible from min. 1 operating hour') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0);
                     return false;
                 }
 
@@ -3642,7 +3642,7 @@ class HELIOS extends IPSModule
             $result = NULL;
             if (($result1 !== NULL) && ($result2 !== NULL)) {
                 if ($result1 == 0) {
-                    $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0028 // ' . $this->Translate('Implausible data - abort') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0, KL_ERROR);
+                    $this->SendDebug(__FUNCTION__, $this->Translate('INFO') . ' // ' . $this->Translate('A calculation is only possible from min. 1 operating hour') . ' // result1 = ' . $result1 . ' // result2 = ' . $result2, 0);
                     return false;
                 }
 
@@ -4699,6 +4699,19 @@ class HELIOS extends IPSModule
             $this->SendDebug(__FUNCTION__, 'DEBUG // resultAR = ' . $this->DataToString($resultAR), 0);
         }
 
+        if (is_int($resultAR['WeekProgram']) === true) {
+            if ($resultAR['WeekProgram'] < 5) {
+                $weeklyplanEventID = @$this->GetIDForIdent('WeeklyPlan');
+                if ($weeklyplanEventID > 0) {
+                    if (IPS_EventExists($weeklyplanEventID) === true) {
+                        if (IPS_GetEvent($weeklyplanEventID)['EventActive'] === true) {
+                            IPS_SetEventActive($weeklyplanEventID, false);
+                        }
+                    }
+                }
+            }
+        }
+
         return $resultAR;
     }
 
@@ -4853,6 +4866,17 @@ class HELIOS extends IPSModule
         if ($result !== NULL) {
             $result = (int)$result;
 
+            if ($result < 5) {
+                $weeklyplanEventID = @$this->GetIDForIdent('WeeklyPlan');
+                if ($weeklyplanEventID > 0) {
+                    if (IPS_EventExists($weeklyplanEventID) === true) {
+                        if (IPS_GetEvent($weeklyplanEventID)['EventActive'] === true) {
+                            IPS_SetEventActive($weeklyplanEventID, false);
+                        }
+                    }
+                }
+            }
+
             $this->SetValue_IfDifferent('WeekProgram', $result);
         }
 
@@ -4865,6 +4889,18 @@ class HELIOS extends IPSModule
         $vID = 'v00901';
 
         if (($value >= 0) || ($value <= 5)) {
+
+            if ($value < 5) {
+                $weeklyplanEventID = @$this->GetIDForIdent('WeeklyPlan');
+                if ($weeklyplanEventID > 0) {
+                    if (IPS_EventExists($weeklyplanEventID) === true) {
+                        if (IPS_GetEvent($weeklyplanEventID)['EventActive'] === true) {
+                            IPS_SetEventActive($weeklyplanEventID, false);
+                        }
+                    }
+                }
+            }
+
             $result = $this->FunctionHelperSET($vID, $value);
             $this->SetValue_IfDifferent('WeekProgram', $value);
             return $result;
