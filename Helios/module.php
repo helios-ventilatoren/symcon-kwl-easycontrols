@@ -1016,7 +1016,7 @@ class HELIOS extends IPSModule
 	"elements":
 	[
 		{ "type": "Label", "label": "##### Helios easyControls v0.9 #####" },
-		{ "type": "Label", "label": "##### 19.05.2019 - 17:00 #####"},
+		{ "type": "Label", "label": "##### 19.05.2019 - 17:30 #####"},
 		{ "type": "Label", "label": "___________________________________________________________________________________________" },
 		{ "type": "ValidationTextBox", "name": "deviceip", "caption": "Device IP-Address" },
 		{ "type": "PasswordTextBox", "name": "devicepassword", "caption": "Device Password" },
@@ -1586,6 +1586,10 @@ class HELIOS extends IPSModule
 
         if ($Message === IPS_KERNELSTARTED) {
             $this->ApplyChanges();
+        } elseif ($Message === EM_CHANGEACTIVE) {
+            if ($Data === true) {
+                $this->WeekProgram_Set(5);
+            }
         }
 
         return true;
@@ -2654,6 +2658,10 @@ class HELIOS extends IPSModule
             IPS_SetEventScheduleAction($eventID, 3, '3 - ' . $this->Translate('Nominal ventilation'), 0x19CE0D, 'HELIOS_FanLevel_Set($_IPS["TARGET"], 3);');
             IPS_SetEventScheduleAction($eventID, 4, '4 - ' . $this->Translate('Intensive ventilation'), 0xE5C012, 'HELIOS_FanLevel_Set($_IPS["TARGET"], 4);');
             IPS_SetEventActive($eventID, false);
+        }
+
+        if ($eventID > 0) {
+            $this->RegisterMessage($eventID, EM_CHANGEACTIVE);
         }
 
         return true;
@@ -4699,18 +4707,19 @@ class HELIOS extends IPSModule
             $this->SendDebug(__FUNCTION__, 'DEBUG // resultAR = ' . $this->DataToString($resultAR), 0);
         }
 
-        if (is_int($resultAR['WeekProgram']) === true) {
-            if ($resultAR['WeekProgram'] < 5) {
-                $weeklyplanEventID = @$this->GetIDForIdent('WeeklyPlan');
-                if ($weeklyplanEventID > 0) {
-                    if (IPS_EventExists($weeklyplanEventID) === true) {
-                        if (IPS_GetEvent($weeklyplanEventID)['EventActive'] === true) {
+        $weeklyplanEventID = @$this->GetIDForIdent('WeeklyPlan');
+        if ($weeklyplanEventID > 0) {
+            if (IPS_EventExists($weeklyplanEventID) === true) {
+                if (IPS_GetEvent($weeklyplanEventID)['EventActive'] === true) {
+                    if (is_int($resultAR['WeekProgram']) === true) {
+                        if ($resultAR['WeekProgram'] < 5) {
                             IPS_SetEventActive($weeklyplanEventID, false);
                         }
                     }
                 }
             }
         }
+
 
         return $resultAR;
     }
