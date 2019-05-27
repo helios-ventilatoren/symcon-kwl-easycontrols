@@ -3,13 +3,12 @@
 [![Version](https://img.shields.io/badge/Symcon_Version->=%204.3-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Version](https://img.shields.io/badge/Modul_Version-1.0-green.svg)]()
 [![Version](https://img.shields.io/badge/Code-PHP-green.svg)]()
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)<br><br>
 
 
 ![Helios Logo](/imgs/helios_logo.png)
 
 
-<br><br>
 ## Dokumentation
 
 **Inhaltsverzeichnis**
@@ -137,18 +136,18 @@ Liest den Status der Bypass Klappe aus. Ist der Bypass geöffnet wird TRUE zurü
     HELIOS_CO2Control_Get(int $InstanceID);
 ```
 Liest die aktuelle Einstellung der CO2-Steuerung aus und gibt einen Integer-Wert zurück.<br>
-0 = Aus<br>
-1 = Stufig<br>
-2 = Stufenlos<br><br>
+- 0 = Aus<br>
+- 1 = Stufig<br>
+- 2 = Stufenlos<br><br>
 
 ```php
     HELIOS_CO2Control_Set(int $InstanceID, int $value);
 ```
 Funktion zur Einstellung der CO2-Steuerung.<br>
 Gültige Integer-Werte für $value sind:<br>
-0 (Aus)<br>
-1 (Stufig)<br>
-2 (Stufenlos)<br><br>
+- 0 (Aus)<br>
+- 1 (Stufig)<br>
+- 2 (Stufenlos)<br><br>
 
 ```php
     HELIOS_CO2Sensor_Get(int $InstanceID, int $number);
@@ -233,25 +232,25 @@ Berechnet die aktuelle Rückwärmezahl (Richtlinie VDI 2071 "Wärmerückgewinnun
     HELIOS_HumidityControl_Get(int $InstanceID);
 ```
 Liest die aktuelle Einstellung der Feuchte-Steuerung aus und gibt einen Integer-Wert zurück.<br>
-0 = Aus<br>
-1 = Stufig<br>
-2 = Stufenlos<br><br>
+- 0 = Aus<br>
+- 1 = Stufig<br>
+- 2 = Stufenlos<br><br>
 
 ```php
     HELIOS_HumidityControl_Set(int $InstanceID, int $value);
 ```
 Funktion zur Einstellung der Feuchte-Steuerung.<br>
 Gültige Integer-Werte für $value sind:<br>
-0 (Aus)<br>
-1 (Stufig)<br>
-2 (Stufenlos)<br><br>
+- 0 (Aus)<br>
+- 1 (Stufig)<br>
+- 2 (Stufenlos)<br><br>
 
 ```php
     HELIOS_HumidityControl_Internal_Get(int $InstanceID);
 ```
 Liest die aktuelle Einstellung der internen Feuchte-Steuerung aus (sofern in der Anlage vorhanden) und gibt einen Integer-Wert zurück.<br>
-0 = Aus<br>
-1 = Stufenlos<br><br>
+- 0 = Aus<br>
+- 1 = Stufenlos<br><br>
 
 ```php
     HELIOS_HumidityControl_Internal_ExhaustAir_Get(int $InstanceID);
@@ -263,8 +262,8 @@ Liest den aktuellen Wert der relativen Luftfeuchtigkeit im Abluft-Kanal aus und 
 ```
 Funktion zur Einstellung der internen Feuchte-Steuerung (sofern in der Anlage vorhanden).<br>
 Gültige Integer-Werte für $value sind:<br>
-0 (Aus)<br>
-1 (Stufenlos)<br><br>
+- 0 (Aus)<br>
+- 1 (Stufenlos)<br><br>
 
 ```php
     HELIOS_HumiditySensor_Get(int $InstanceID, int $number);
@@ -281,11 +280,11 @@ Abfrage aller Feuchte-Sensoren über eine Funktion. Zurückgegeben wird ein Arra
     HELIOS_OperatingMode_Get(int $InstanceID);
 ```
 Abfragen der aktuellen Betriebsart. Zurückgegeben wird ein Integer-Wert mit folgenden möglichen Werten:<br>
-0 = Automatisch<br>
-1 = Manuell<br>
-2 = Partybetrieb<br>
-3 = Ruhebetrieb<br>
-4 = Urlaubsbetrieb<br><br>
+- 0 = Automatisch<br>
+- 1 = Manuell<br>
+- 2 = Partybetrieb<br>
+- 3 = Ruhebetrieb<br>
+- 4 = Urlaubsbetrieb<br><br>
 
 ```php
     HELIOS_OperatingMode_Party_Set(int $InstanceID, bool $activate, int $fanlevel, int $duration);
@@ -367,8 +366,8 @@ Liest die aktuelle Einstellung für "AUTO um Mitternacht" aus. Die Antwort ist e
     HELIOS_System_AUTOatMidnight_Set(int $InstanceID, bool $value);
 ```
 Funktion zum De/aktivieren der Einstellung "AUTO um Mitternacht".<br>
-TRUE = Anlage schaltet um Mitternacht in die Betriebsart "Automatik"<br>
-FALSE = Anlage schaltet um Mitternacht NICHT in die Betriebsart "Automatik"<br><br>
+- TRUE = Anlage schaltet um Mitternacht in die Betriebsart "Automatik"<br>
+- FALSE = Anlage schaltet um Mitternacht NICHT in die Betriebsart "Automatik"<br><br>
 
 ```php
     HELIOS_System_CloudSync_Get(int $InstanceID);
@@ -379,8 +378,8 @@ Liest die aktuelle Einstellung für "Cloud Synchronisierung" aus. Die Antwort is
     HELIOS_System_CloudSync_Set(int $InstanceID, bool $value);
 ```
 Funktion zum De/aktivieren der Einstellung "Cloud Synchronisierung".<br>
-TRUE = Cloud Synchronisierung ist aktiv<br>
-FALSE = Cloud Synchronisierung ist inaktiv<br><br>
+- TRUE = Cloud Synchronisierung ist aktiv<br>
+- FALSE = Cloud Synchronisierung ist inaktiv<br><br>
 
 ```php
     HELIOS_System_Date_Get(int $InstanceID);
@@ -401,8 +400,8 @@ Liest die aktuelle Einstellung für "Sommerzeit-Modus" aus. Die Antwort ist ein 
     HELIOS_System_DaylightSavingTimeMode_Set(int $InstanceID, bool $value);
 ```
 Funktion zum De/aktivieren der Einstellung "Sommerzeit-Modus".<br>
-TRUE = Sommerzeit-Modus ist aktiv<br>
-FALSE = Sommerzeit-Modus ist inaktiv<br><br>
+- TRUE = Sommerzeit-Modus ist aktiv<br>
+- FALSE = Sommerzeit-Modus ist inaktiv<br><br>
 
 ```php
     HELIOS_System_FanLevelMin_Get(int $InstanceID);
@@ -472,8 +471,8 @@ Liest die aktuelle Einstellung für "Modbus" aus der verbundenen Anlage aus. Die
     HELIOS_System_Modbus_Set(int $InstanceID, bool $value);
 ```
 Funktion zum De/aktivieren der Einstellung "Modbus".<br>
-TRUE = Modbus ist aktiv<br>
-FALSE = Modbus ist inaktiv<br><br>
+- TRUE = Modbus ist aktiv<br>
+- FALSE = Modbus ist inaktiv<br><br>
 
 ```php
     HELIOS_System_OperatingHours_Afterheater_Get(int $InstanceID);
@@ -520,8 +519,8 @@ Liest die aktuelle Einstellung für "Ruhemodus für Fühlerregelung" aus der ver
 ```
 Funktion zum De/aktivieren oder Ändern der Einstellung "Ruhemodus für Fühlerregelung".<br>
 Die Parameter $timeFrom und $timeTo sind zum Definieren der gewünschten Ruhezeit und müssen im Format "HH:MM" (z.B. "16:00") übermittelt werden. Der Parameter $activate ist zum De/aktivieren der Einstellung.<br>
-TRUE = Ruhemodus für Fühlerregelung ist aktiv<br>
-FALSE = Ruhemodus für Fühlerregelung ist inaktiv<br><br>
+- TRUE = Ruhemodus für Fühlerregelung ist aktiv<br>
+- FALSE = Ruhemodus für Fühlerregelung ist inaktiv<br><br>
 
 ```php
     HELIOS_System_SensorControlSleepModeFROM_Get(int $InstanceID);
@@ -561,8 +560,8 @@ Liest die aktuelle Einstellung für "Automatische Softwareupdates" aus der verbu
     HELIOS_System_SoftwareUpdateAutomatic_Set(int $InstanceID, bool $value);
 ```
 Funktion zum De/aktivieren der Einstellung "Automatische Softwareupdates".<br>
-TRUE = Automatische Softwareupdates sind aktiv<br>
-FALSE = Automatische Softwareupdates sind inaktiv<br><br>
+- TRUE = Automatische Softwareupdates sind aktiv<br>
+- FALSE = Automatische Softwareupdates sind inaktiv<br><br>
 
 ```php
     HELIOS_System_SoftwareVersion_Get(int $InstanceID);
@@ -605,18 +604,18 @@ Abfrage aller Temperatur-Sensoren über eine Funktion. Zurückgegeben wird ein A
     HELIOS_VOCControl_Get(int $InstanceID);
 ```
 Liest die aktuelle Einstellung der VOC-Steuerung aus und gibt diesen als Integer-Wert zurück.<br>
-0 = Aus<br>
-1 = Stufig<br>
-2 = Stufenlos<br><br>
+- 0 = Aus<br>
+- 1 = Stufig<br>
+- 2 = Stufenlos<br><br>
 
 ```php
     HELIOS_VOCControl_Set(int $InstanceID, int $value);
 ```
 Funktion zur Einstellung der VOC-Steuerung.<br>
 Gültige Integer-Werte für $value sind:<br>
-0 (Aus)<br>
-1 (Stufig)<br>
-2 (Stufenlos)<br><br>
+- 0 (Aus)<br>
+- 1 (Stufig)<br>
+- 2 (Stufenlos)<br><br>
 
 ```php
     HELIOS_VOCSensor_Get(int $InstanceID, int $number);
@@ -634,33 +633,33 @@ Abfrage aller VOC-Sensoren über eine Funktion. Zurückgegeben wird ein Array mi
     HELIOS_WeekProgram_Get(int $InstanceID);
 ```
 Liest das eingestellte Wochenprogramm aus der verbundenen Anlage (aus easyControls) als Integer-Wert aus.<br>
-0 = Standard 1<br>
-1 = Standard 2<br>
-2 = Standard 3<br>
-3 = Benutzerdefiniert 1<br>
-4 = Benutzerdefiniert 2<br>
-5 = Aus<br>
+- 0 = Standard 1<br>
+- 1 = Standard 2<br>
+- 2 = Standard 3<br>
+- 3 = Benutzerdefiniert 1<br>
+- 4 = Benutzerdefiniert 2<br>
+- 5 = Aus<br>
 Bitte den Abschnitt [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr) beachten.<br><br>
 
 ```php
     HELIOS_WeekProgram_Set(int $InstanceID, int $value);
 ```
 Funktion zum Einstellen des gewünschten Wochenprogrammes. Das Wochenprogramm muss als Integer-Wert angegeben werden.<br>
-0 (Standard 1)<br>
-1 (Standard 2)<br>
-2 (Standard 3)<br>
-3 (Benutzerdefiniert 1)<br>
-4 (Benutzerdefiniert 2)<br>
-5 (Aus)<br>
+- 0 (Standard 1)<br>
+- 1 (Standard 2)<br>
+- 2 (Standard 3)<br>
+- 3 (Benutzerdefiniert 1)<br>
+- 4 (Benutzerdefiniert 2)<br>
+- 5 (Aus)<br>
 Bitte den Abschnitt [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr) beachten.<br><br>
 
 ```php
-    HELIOS_Update_Data();
+    HELIOS_Update_Data(int $InstanceID);
 ```  
 Liest alle Informationen (inkl. System-Informationen) zum Gerät von easyControls aus, gibt die Daten als Array zurück schreibt die Daten in die jeweiligen Variablen.<br><br>
 
 ```php
-    HELIOS_Update_System_Data();
+    HELIOS_Update_System_Data(int $InstanceID);
 ```  
 Liest die System-Informationen zum Gerät von easyControls aus, gibt die Daten als Array zurück schreibt die Daten in die jeweiligen Variablen.<br>
 
@@ -684,4 +683,4 @@ Dieses Modul wird in der Hoffnung bereitgestellt, dass es nützlich sein wird, j
 sogar ohne die implizite Gewähr der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.<br>
 Siehe die GNU General Public License für weitere Einzelheiten.
 
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
+Sie sollten eine Kopie der GNU General Public License zusammen mit diesem Modul erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.

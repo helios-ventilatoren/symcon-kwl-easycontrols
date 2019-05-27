@@ -3,13 +3,12 @@
 [![Version](https://img.shields.io/badge/Symcon_Version->=%204.3-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Version](https://img.shields.io/badge/Modul_Version-1.0-green.svg)]()
 [![Version](https://img.shields.io/badge/Code-PHP-green.svg)]()
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)<br><br>
 
 
 ![Helios Logo](/imgs/helios_logo.png)
 
 
-<br><br>
 ## Documentation
 
 **Table of contents**
@@ -137,18 +136,18 @@ Reads the status of the bypass flap. If the bypass is open, TRUE is returned, ot
     HELIOS_CO2Control_Get(int $InstanceID);
 ```
 Reads the current setting of the CO2 control and returns an integer value.<br>
-0 = Off<br>
-1 = Stepped<br>
-2 = Stepless<br><br>
+- 0 = Off<br>
+- 1 = Stepped<br>
+- 2 = Stepless<br><br>
 
 ```php
     HELIOS_CO2Control_Set(int $InstanceID, int $value);
 ```
 Function for setting the CO2 control.<br>
 Valid integer values for $value are:<br>
-0 (Off)<br>
-1 (Stepped) <br>
-2 (Steppless)<br><br>
+- 0 (Off)<br>
+- 1 (Stepped) <br>
+- 2 (Steppless)<br><br>
 
 ```php
     HELIOS_CO2Sensor_Get(int $InstanceID, int $number);
@@ -233,25 +232,25 @@ Calculates the current heat recovery efficiency (Guideline VDI 2071 "Heat recove
     HELIOS_HumidityControl_Get(int $InstanceID);
 ```
 Reads out the current humidity control setting and returns an integer value.<br>
-0 = Off<br>
-1 = Stepped<br>
-2 = Stepless<br><br>
+- 0 = Off<br>
+- 1 = Stepped<br>
+- 2 = Stepless<br><br>
 
 ```php
     HELIOS_HumidityControl_Set(int $InstanceID, int $value);
 ```
 Function for setting the humidity control.<br>
 Valid integer values for $value are:<br>
-0 (Off)<br>
-1 (Stepped)<br>
-2 (Stepless)<br><br>
+- 0 (Off)<br>
+- 1 (Stepped)<br>
+- 2 (Stepless)<br><br>
 
 ```php
     HELIOS_HumidityControl_Internal_Get(int $InstanceID);
 ```
 Reads the current setting of the internal humidity control (if available in the system) and returns an integer value.<br>
-0 = Off<br>
-1 = Stepless<br><br>
+- 0 = Off<br>
+- 1 = Stepless<br><br>
 
 ```php
     HELIOS_HumidityControl_Internal_ExhaustAir_Get(int $InstanceID);
@@ -263,8 +262,8 @@ Reads the current relative humidity value in the exhaust air duct and returns th
 ```
 Function for setting the internal humidity control (if available in the system).<br>
 Valid integer values for $value are:<br>
-0 (Off)<br>
-1 (Stepless)<br><br>
+- 0 (Off)<br>
+- 1 (Stepless)<br><br>
 
 ```php
     HELIOS_HumiditySensor_Get(int $InstanceID, int $number);
@@ -281,11 +280,11 @@ Query of all humidity sensors via one function. An array is returned with the se
     HELIOS_OperatingMode_Get(int $InstanceID);
 ```
 Query the current operating mode. An integer value is returned with the following possible values:<br>
-0 = Automatic<br>
-1 = Manual<br>
-2 = Party mode<br>
-3 = Idle mode<br>
-4 = Vacation mode<br><br>
+- 0 = Automatic<br>
+- 1 = Manual<br>
+- 2 = Party mode<br>
+- 3 = Idle mode<br>
+- 4 = Vacation mode<br><br>
 
 ```php
     HELIOS_OperatingMode_Party_Set(int $InstanceID, bool $activate, int $fanlevel, int $duration);
@@ -367,8 +366,8 @@ Reads the current setting for "AUTO at midnight". It returns a Boolean value.<br
     HELIOS_System_AUTOatMidnight_Set(int $InstanceID, bool $value);
 ```
 Function for de/activating the setting "AUTO at midnight".<br>
-TRUE = System switches to "Automatic" operating mode at midnight<br>
-FALSE = System does NOT switch to "Automatic" operating mode at midnight.<br><br>
+- TRUE = System switches to "Automatic" operating mode at midnight<br>
+- FALSE = System does NOT switch to "Automatic" operating mode at midnight.<br><br>
 
 ```php
     HELIOS_System_CloudSync_Get(int $InstanceID);
@@ -379,8 +378,8 @@ Reads the current setting for "Cloud Synchronization". It returns a Boolean valu
     HELIOS_System_CloudSync_Set(int $InstanceID, bool $value);
 ```
 Function to de/activate the setting "Cloud Synchronization".<br>
-TRUE = Cloud synchronization is active<br>
-FALSE = Cloud synchronization is inactive<br><br>
+- TRUE = Cloud synchronization is active<br>
+- FALSE = Cloud synchronization is inactive<br><br>
 
 ```php
     HELIOS_System_Date_Get(int $InstanceID);
@@ -401,8 +400,8 @@ Reads the current setting for "Daylight Saving Time Mode". It returns a Boolean 
     HELIOS_System_DaylightSavingTimeMode_Set(int $InstanceID, bool $value);
 ```
 Function to de/activate the "Summer time mode" setting.<br>
-TRUE = Daylight saving time mode is active<br>
-FALSE = Daylight saving time mode is inactive<br><br>
+- TRUE = Daylight saving time mode is active<br>
+- FALSE = Daylight saving time mode is inactive<br><br>
 
 ```php
     HELIOS_System_FanLevelMin_Get(int $InstanceID);
@@ -472,8 +471,8 @@ Reads the current setting for "Modbus" from the connected system. It returns a B
     HELIOS_System_Modbus_Set(int $InstanceID, bool $value);
 ```
 Function to de/activate the setting "Modbus".<br>
-TRUE = Modbus is active<br>
-FALSE = Modbus is inactive<br><br>
+- TRUE = Modbus is active<br>
+- FALSE = Modbus is inactive<br><br>
 
 ```php
     HELIOS_System_OperatingHours_Afterheater_Get(int $InstanceID);
@@ -520,8 +519,8 @@ Reads the current setting for "Sleep mode for sensor control" from the connected
 ```
 Function to de/activate or change the setting "Sleep mode for sensor control".<br>
 The parameters $timeFrom and $timeTo are for defining the desired rest time and must be transmitted in the format "HH:MM" (e.g. "16:00"). The $activate parameter is for de/activating the setting.<br>
-TRUE = Sleep mode for sensor control is active<br>
-FALSE = Sleep mode for sensor control is inactive<br><br>
+- TRUE = Sleep mode for sensor control is active<br>
+- FALSE = Sleep mode for sensor control is inactive<br><br>
 
 ```php
     HELIOS_System_SensorControlSleepModeFROM_Get(int $InstanceID);
@@ -561,8 +560,8 @@ Reads the current setting for "Automatic software updates" from the connected sy
     HELIOS_System_SoftwareUpdateAutomatic_Set(int $InstanceID, bool $value);
 ```
 Function to de/activate the setting "Automatic software updates".<br>
-TRUE = Automatic software updates are active <br>
-FALSE = automatic software updates are inactive<br><br>
+- TRUE = Automatic software updates are active <br>
+- FALSE = automatic software updates are inactive<br><br>
 
 ```php
     HELIOS_System_SoftwareVersion_Get(int $InstanceID);
@@ -605,18 +604,18 @@ Query of all temperature sensors via one function. An array is returned with the
     HELIOS_VOCControl_Get(int $InstanceID);
 ```
 Reads the current setting of the VOC control and returns it as an integer value.<br>
-0 = Off<br>
-1 = Stepped<br>
-2 = Stepless<br><br>
+- 0 = Off<br>
+- 1 = Stepped<br>
+- 2 = Stepless<br><br>
 
 ```php
     HELIOS_VOCControl_Set(int $InstanceID, int $value);
 ```
 Function for setting the VOC control.<br>
 Valid integer values for $value are:<br>
-0 (Off)<br>
-1 (Stepped) <br>
-2 (Stepless)<br><br>
+- 0 (Off)<br>
+- 1 (Stepped) <br>
+- 2 (Stepless)<br><br>
 
 ```php
     HELIOS_VOCSensor_Get(int $InstanceID, int $number);
@@ -634,33 +633,33 @@ Query of all VOC sensors via one function. An array is returned with the sensor 
     HELIOS_WeekProgram_Get(int $InstanceID);
 ```
 Reads the set weekly program from the connected system (from easyControls) as an integer value.<br>
-0 = Standard 1<br>
-1 = Standard 2<br>
-2 = Standard 3<br>
-3 = User-defined 1<br>
-4 = User defined 2<br>
-5 = Off<br>
+- 0 = Standard 1<br>
+- 1 = Standard 2<br>
+- 2 = Standard 3<br>
+- 3 = User-defined 1<br>
+- 4 = User defined 2<br>
+- 5 = Off<br>
 Please read the section [Notes on the weekly schedule in IP-Symcon and weekly program in easyControls](#53-notes-on-the-weekly-schedule-in-ip-symcon-and-weekly-program-in-easycontrolsbr).<br><br>
 
 ```php
     HELIOS_WeekProgram_Set(int $InstanceID, int $value);
 ```
 Function for setting the desired weekly program. The weekly program must be specified as an integer value.<br>
-0 (Standard 1)<br>
-1 (Standard 2)<br>
-2 (Standard 3)<br>
-3 (User Defined 1)<br>
-4 (User Defined 2)<br>
-5 (Off)<br>
+- 0 (Standard 1)<br>
+- 1 (Standard 2)<br>
+- 2 (Standard 3)<br>
+- 3 (User Defined 1)<br>
+- 4 (User Defined 2)<br>
+- 5 (Off)<br>
 Please read the section [Notes on the weekly schedule in IP-Symcon and weekly program in easyControls](#53-notes-on-the-weekly-schedule-in-ip-symcon-and-weekly-program-in-easycontrolsbr).<br><br>
 
 ```php
-    HELIOS_Update_Data();
+    HELIOS_Update_Data(int $InstanceID);
 ```  
 Reads all information (including system information) about the device from easyControls, returns the data as an array and writes the data into the respective variables.<br><br>
 
 ```php
-    HELIOS_Update_System_Data();
+    HELIOS_Update_System_Data(int $InstanceID);
 ```  
 Reads the system information about the device from easyControls, returns the data as an array and writes the data into the respective variables.<br>
 
@@ -684,4 +683,4 @@ This module is distributed in the hope that it will be useful, but WITHOUT ANY W
 without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.<br>
 See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with this module. If not, see <http://www.gnu.org/licenses/>.
