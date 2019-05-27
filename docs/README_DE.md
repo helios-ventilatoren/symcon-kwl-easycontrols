@@ -1,8 +1,9 @@
-### IP-Symcon Modul // Helios easyControls  (by Christoph Bach - www.bayaro.net)
+### IP-Symcon Modul // Helios  (Copyright 2019 Christoph Bach - [www.bayaro.net](https://www.bayaro.net))
 ---
 [![Version](https://img.shields.io/badge/Symcon_Version->=%204.3-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
 [![Version](https://img.shields.io/badge/Modul_Version-1.0-green.svg)]()
 [![Version](https://img.shields.io/badge/Code-PHP-green.svg)]()
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
 ![Helios Logo](/imgs/helios_logo.png)
@@ -18,11 +19,12 @@
 3. [Systemanforderungen](#3-systemanforderungen)
 4. [Installation](#4-installation)
 5. [Bedienungsinformationen](#5-bedienungsinformationen)<br>
-5.1. [Hinweise zu technischen Änderungen an der Lüftungsanlage](#51-hinweise-zu-technischen-änderungen-an-der-lüftungsanlage)<br>
-5.2. [Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogramme)<br>
-5.3. [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrols)
+5.1. [Hinweise zu technischen Änderungen an der Lüftungsanlage](#51-hinweise-zu-technischen-nderungen-an-der-lftungsanlagebr)<br>
+5.2. [Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogrammebr)<br>
+5.3. [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr)
 6. [Befehlsreferenz](#6-befehlsreferenz) 
 7. [Changelog](#7-changelog)
+8. [Lizenz](#8-lizenz)
 
 
 <br><br>
@@ -39,7 +41,7 @@ Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetve
 - Wie viele Tage vor Filterwechsel die Zustandsvariable auf -Warnung- gesetzt werden soll
 - Intervall für den Filter-Wechsel
 - Optischen Darstellung der Status-/Fehler-/Warnung- und Info-Meldungen
-- Vorgegebene Namen der easyControls-Wochenprogramme durch eigenen Text ersetzen
+- Vorgegebene Namen der easyControls-Wochenprogramme durch eigenen Text ersetzen (nur in IP-Symcon)
 - Logging für verschiedene Variablen-Gruppen des Moduls de/aktivieren
 - Konfiguration der Benachrichtigungsmethode(n)
 - Themengebiete für Benachrichtigungen de/aktivieren
@@ -58,7 +60,7 @@ Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetve
 <br><br>
 ## 3. Systemanforderungen
 - IP-Symcon ab Version 4.3
-- Helios KWL Lüftungsanlage mit easyControls Steuerung
+- Helios KWL Lüftungsanlage mit easyControls
 
 
 <br><br>
@@ -182,13 +184,13 @@ Liest die aktuelle Lüfterstufe in % aus der verbundenen Anlage aus und gibt die
 ```php
     HELIOS_FanLevel_Set(int $InstanceID, int $fanlevel);
 ```
-Setzen der aktuellen Lüferstufe auf den bei $fanlevel angegebenen Wert (0 bis 4). Die verbundene Anlage wird automatisch auf manuelle Betriebsart und die angegebene Lüfterstufe eingestellt.<br>
+Setzen der aktuellen Lüferstufe auf den bei $fanlevel angegebenen Wert (0/1 bis 4). Die verbundene Anlage wird automatisch auf manuelle Betriebsart und die angegebene Lüfterstufe eingestellt.<br>
 Bei dieser Funktion wird die minimale Lüferstufe (Einstellung in easyControls) beachtet. Darf als minimale Lüferstufe nur die Stufe 1 gewählt werden, dann kann auch über diese Funktion minimal nur die Stufe 1 gesetzt werden.<br><br>
 
 ```php
     HELIOS_FanLevel_SetForPeriod(int $InstanceID, int $fanlevel, int $minutes);
 ```
-Setzen der aktuellen Lüferstufe auf den bei $fanlevel angegebenen Wert (0 bis 4) für die bei $minutes angegebene Zeit (in Minuten). Die verbundene Anlage wird automatisch auf manuelle Betriebsart und die angegebene Lüfterstufe eingestellt.<br>
+Setzen der aktuellen Lüferstufe auf den bei $fanlevel angegebenen Wert (0/1 bis 4) für die bei $minutes angegebene Zeit (in Minuten). Die verbundene Anlage wird automatisch auf manuelle Betriebsart und die angegebene Lüfterstufe eingestellt.<br>
 Nach der angegebenen Zeit wird die verbundene Anlage wieder auf die Betriebsart "Automatisch" gestellt.<br>
 Bei dieser Funktion wird die minimale Lüferstufe (Einstellung in easyControls) beachtet. Darf als minimale Lüferstufe nur die Stufe 1 gewählt werden, dann kann auch über diese Funktion minimal nur die Stufe 1 gesetzt werden.<br><br>
 
@@ -291,13 +293,13 @@ Abfragen der aktuellen Betriebsart. Zurückgegeben wird ein Integer-Wert mit fol
 Funktion zum De/aktivieren des Kurzprogramm "Partybetrieb".<br>
 Wird beim Parameter $active FALSE übergeben, dann wird der Partybetrieb beendet und die Anlage auf die Betriebsart "Automatisch" gestellt.<br>
 Setzt man den Parameter $activate auf TRUE, dann müssen die folgenden Parameter mit angegeben werden:<br>
-- fanlevel = 0 bis 4 (unter Beachtung der minimal erlaubten Lüfterstufe)
+- fanlevel = 0/1 bis 4 (unter Beachtung der minimal erlaubten Lüfterstufe)
 - duration = 5 bis 180 Minuten<br><br>
 
 ```php
     HELIOS_OperatingMode_Party_SetWithPresets(int $InstanceID);
 ```
-Aktivieren des Kurzprogramm "Partybetrieb" unter Verwendung der in den Modul-Variablen gewählten Voreinstellungen (siehe weiter oben unter Punkt 5 [Bedienungsinformationen] beim Absatz "Hinweise zu Voreinstellungs-Variablen der Betriebsarten/Kurzprogramme").<br><br>
+Aktivieren des Kurzprogramm "Partybetrieb" unter Verwendung der in den Modul-Variablen gewählten Voreinstellungen (siehe weiter oben unter Punkt 5 [Bedienungsinformationen - Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogrammebr)).<br><br>
 
 ```php
     HELIOS_OperatingMode_RemainingMinutes_Get(int $InstanceID);
@@ -305,9 +307,9 @@ Aktivieren des Kurzprogramm "Partybetrieb" unter Verwendung der in den Modul-Var
 Auslesen der Restlaufzeit des aktuellen Kurzprogrammes. Zurückgegeben wird ein Integer-Wert in Minuten.<br><br>
 
 ```php
-    HELIOS_OperatingMode_Set(int $InstanceID, string $value);
+    HELIOS_OperatingMode_Set(int $InstanceID, string $mode);
 ```
-Setzen der aktuellen Betriebsart der verbundenen Anlage. Gültige Werte für $value sind "auto" oder "manu".<br><br>
+Setzen der aktuellen Betriebsart der verbundenen Anlage. Gültige Werte für $mode sind "auto" oder "manu".<br><br>
 
 ```php
     HELIOS_OperatingMode_Vacation_Set(int $InstanceID, bool $activate, int $program, int $fanlevel, string $dateStart, string $dateEnd, int $intervalTime, int $activationPeriod);
@@ -316,16 +318,16 @@ Funktion zum De/aktivieren des Kurzprogramm "Urlaubsbetrieb".<br>
 Wird beim Parameter $active FALSE übergeben, dann wird der Urlaubsbetrieb beendet und die Anlage auf die Betriebsart "Automatisch" gestellt.<br>
 Setzt man den Parameter $activate auf TRUE, dann müssen die folgenden Parameter mit angegeben werden:<br>
 - program = 0 Aus, 1 Intervall, 2 Konstant
-- fanlevel = 0 bis 4 (unter Beachtung der minimal erlaubten Lüfterstufe)
-- dateStart = DD.MM.YYYY oder MM.DD.YYYY oder YYYY.MM.DD
-- dateEnd = DD.MM.YYYY oder MM.DD.YYYY oder YYYY.MM.DD
+- fanlevel = 0/1 bis 4 (unter Beachtung der minimal erlaubten Lüfterstufe)
+- dateStart = DD.MM.YYYY oder MM.DD.YYYY oder YYYY.MM.DD (je nach Einstellung im easyControls UI)
+- dateEnd = DD.MM.YYYY oder MM.DD.YYYY oder YYYY.MM.DD (je nach Einstellung im easyControls UI)
 - intervalTime = 1 bis 24 Stunden (nur bei "program 1" notwendig/verfügbar)
 - activationPeriod = 5 bis 300 Minuten (nur bei "program 1" notwendig/verfügbar)<br><br>
 
 ```php
     HELIOS_OperatingMode_Vacation_SetWithPresets(int $InstanceID);
 ```
-Aktivieren des Kurzprogramm "Urlaubsbetrieb" unter Verwendung der in den Modul-Variablen gewählten Voreinstellungen (siehe weiter oben unter Punkt 5 [Bedienungsinformationen] beim Absatz "Hinweise zu Voreinstellungs-Variablen der Kurzprogramme").<br><br>
+Aktivieren des Kurzprogramm "Urlaubsbetrieb" unter Verwendung der in den Modul-Variablen gewählten Voreinstellungen (siehe weiter oben unter Punkt 5 [Bedienungsinformationen - Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogrammebr)).<br><br>
 
 ```php
     HELIOS_OperatingMode_Whisper_Set(int $InstanceID, bool $activate, int $fanlevel, int $duration);
@@ -339,7 +341,7 @@ Setzt man den Parameter $activate auf TRUE, dann müssen die folgenden Parameter
 ```php
     HELIOS_OperatingMode_Whisper_SetWithPresets(int $InstanceID);
 ```
-Aktivieren des Kurzprogramm "Ruhebetrieb" unter Verwendung der in den Modul-Variablen gewählten Voreinstellungen (siehe weiter oben unter Punkt 5 [Bedienungsinformationen] beim Absatz "Hinweise zu Voreinstellungs-Variablen der Kurzprogramme").<br><br>
+Aktivieren des Kurzprogramm "Ruhebetrieb" unter Verwendung der in den Modul-Variablen gewählten Voreinstellungen (siehe weiter oben unter Punkt 5 [Bedienungsinformationen - Hinweise zu Voreinstellungs-Variablen der Kurzprogramme](#52-hinweise-zu-voreinstellungs-variablen-der-kurzprogrammebr)).<br><br>
 
 ```php
     HELIOS_Preheater_ActualPower_Get(int $InstanceID);
@@ -415,7 +417,7 @@ Auslesen der in easyControls eingestellten Sprache. Zurückgeben wird das Lände
 ```php
     HELIOS_System_MACAddress_Get(int $InstanceID);
 ```
-Liest die MAC-Adresse der verbundenen Anlage aus. Zurückgegeben wird ein String im Format "xx:xx:xx:xx:xx:xx".<br><br>
+Liest die MAC-Adresse der verbundenen Anlage aus. Zurückgegeben wird ein String im Format "XX:XX:XX:XX:XX:XX".<br><br>
 
 ```php
     HELIOS_System_Messages_Error_Get(int $InstanceID);
@@ -448,7 +450,7 @@ Im Falle einer Warnung steht im zugehörigen Array-Eintrag nicht "", sondern die
 ```php
     HELIOS_System_Messages_WarningCount_Get(int $InstanceID);
 ```
-Liest alle Systemmeldungen vom Typ "Fehler" aus der verbundenen Anlage aus und gibt die Anzahl der Meldungen als Integer zurück.<br><br>
+Liest alle Systemmeldungen vom Typ "Warnung" aus der verbundenen Anlage aus und gibt die Anzahl der Meldungen als Integer zurück.<br><br>
 
 ```php
     HELIOS_System_Messages_Status_Get(int $InstanceID);
@@ -565,7 +567,7 @@ FALSE = Automatische Softwareupdates sind inaktiv<br><br>
 ```php
     HELIOS_System_SoftwareVersion_Get(int $InstanceID);
 ```
-Auslesen des Software-Version der verbundenen Anlage. Die Version wird als FLOAT zurückgeben (z.B. 2.27), damit man in eigenen Skripten auch mit ">" oder "<" arbeiten kann.<br><br>
+Auslesen des Software-Version der verbundenen Anlage. Die Version wird als FLOAT zurückgeben (z.B. 2.27), damit man in eigenen Skripten mit ">" oder "<" arbeiten kann.<br><br>
 
 ```php
     HELIOS_System_Time_Get(int $InstanceID);
@@ -631,13 +633,14 @@ Abfrage aller VOC-Sensoren über eine Funktion. Zurückgegeben wird ein Array mi
 ```php
     HELIOS_WeekProgram_Get(int $InstanceID);
 ```
-Liest das eingestellte Wochenprogramm aus der verbundenen Anlage als Integer-Wert aus.<br>
+Liest das eingestellte Wochenprogramm aus der verbundenen Anlage (aus easyControls) als Integer-Wert aus.<br>
 0 = Standard 1<br>
 1 = Standard 2<br>
 2 = Standard 3<br>
 3 = Benutzerdefiniert 1<br>
 4 = Benutzerdefiniert 2<br>
-5 = Aus<br><br>
+5 = Aus<br>
+Bitte den Abschnitt [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr) beachten.<br><br>
 
 ```php
     HELIOS_WeekProgram_Set(int $InstanceID, int $value);
@@ -648,21 +651,37 @@ Funktion zum Einstellen des gewünschten Wochenprogrammes. Das Wochenprogramm mu
 2 (Standard 3)<br>
 3 (Benutzerdefiniert 1)<br>
 4 (Benutzerdefiniert 2)<br>
-5 (Aus)<br><br>
+5 (Aus)<br>
+Bitte den Abschnitt [Hinweise zum Wochenplan in IP-Symcon und Wochenprogramm in easyControls](#53-hinweise-zum-wochenplan-in-ip-symcon-und-wochenprogramm-in-easycontrolsbr) beachten.<br><br>
 
 ```php
     HELIOS_Update_Data();
 ```  
-Liest alle Informationen (inkl. System-Informationen) zum Gerät von easyControls aus, gibt die Daten als Array zurück schreibt die Daten in die jeweiligen Variablen.
+Liest alle Informationen (inkl. System-Informationen) zum Gerät von easyControls aus, gibt die Daten als Array zurück schreibt die Daten in die jeweiligen Variablen.<br><br>
 
 ```php
     HELIOS_Update_System_Data();
 ```  
-Liest die System-Informationen zum Gerät von easyControls aus, gibt die Daten als Array zurück schreibt die Daten in die jeweiligen Variablen.
-
+Liest die System-Informationen zum Gerät von easyControls aus, gibt die Daten als Array zurück schreibt die Daten in die jeweiligen Variablen.<br>
 
 
 <br><br>
 ## 7. Changelog
 Version 1.0:
 - Erster Release
+
+
+<br><br>
+##  8. Lizenz
+[GNU General Public License v3.0 only](https://www.gnu.org/licenses/gpl-3.0.txt)<br>
+
+Copyright 2019 Christoph Bach<br>
+
+Dieses Modul ist Freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie sie von der Free Software Foundation,
+Version 3 der Lizenz, veröffentlicht wurde, weiter verteilen und/oder modifizieren.
+
+Dieses Modul wird in der Hoffnung bereitgestellt, dass es nützlich sein wird, jedoch OHNE JEDE GEWÄHR;
+sogar ohne die implizite Gewähr der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.<br>
+Siehe die GNU General Public License für weitere Einzelheiten.
+
+Sie sollten eine Kopie der GNU General Public License zusammen mit diesem Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
