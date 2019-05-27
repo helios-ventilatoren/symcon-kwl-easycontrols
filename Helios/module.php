@@ -230,6 +230,10 @@ class HELIOS extends IPSModule
             $this->Update_Data();
         }
 
+        // Stop timers
+        $this->Timer_Control('Update_BasicInfo', 0);
+        $this->Timer_Control('Update_Data', 0);
+
         return false;
     }
 
@@ -1115,7 +1119,7 @@ class HELIOS extends IPSModule
 		{ "type": "Label", "label": "___________________________________________________________________________" },
 		{ "type": "Button", "label": "Send Test-Notification", "onClick": "HELIOS_Notification_Test($id);" },
 		{ "type": "Label", "label": "___________________________________________________________________________" },
-		{ "type": "Button", "caption": "Module Documentation", "onClick": "echo \'https://github.com/helios-ventilatoren/symcon-kwl-easycontrols/README.md\';" },
+		{ "type": "Button", "caption": "Module Documentation", "onClick": "echo \'https://github.com/helios-ventilatoren/symcon-kwl-easycontrols/blob/master/README.md\';" },
 		{ "type": "Button", "caption": "www.heliosventilatoren.de", "onClick": "echo \'https://www.heliosventilatoren.de\';" },
 		{ "type": "Button", "caption": "www.bayaro.net", "onClick": "echo \'https://www.bayaro.net\';" }
 
