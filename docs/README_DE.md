@@ -6,7 +6,7 @@
 [![License: GPL v3](https://img.shields.io/badge/Lizenz-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)<br><br>
 
 
-![Helios Logo](/imgs/helios_logo.png)
+![Helios Logo](/imgs/helios_logo.jpg)
 
 
 ## Dokumentation
@@ -28,7 +28,7 @@
 
 <br><br>
 ## 1. Funktionsumfang
-Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.heliosventilatoren.de/de/) KWL Lüftungsanlagen mit [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
+Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.heliosventilatoren.de/de/) KWL Lüftungsanlagen mit [easyControls Steuerung](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
 Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetverbindung mit dem Helios Cloud-Portal (www.easycontrols.net) erforderlich. Die Kommunikation erfolgt direkt mit der easyControls Steuerung der Lüftungsanlage im lokalen Netzwerk.<br><br> 
 
 **Einstellungsmöglichkeiten in der Modul-Instanz:**

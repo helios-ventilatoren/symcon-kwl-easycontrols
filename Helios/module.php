@@ -228,6 +228,8 @@ class HELIOS extends IPSModule
 
             // Retrieve all data from easyControls
             $this->Update_Data();
+
+            return true;
         }
 
         // Stop timers

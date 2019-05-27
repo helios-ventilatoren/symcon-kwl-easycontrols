@@ -6,7 +6,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)<br><br>
 
 
-![Helios Logo](/imgs/helios_logo.png)
+![Helios Logo](/imgs/helios_logo.jpg)
 
 
 ## Documentation
@@ -28,7 +28,7 @@
 
 <br><br>
 ## 1. Features
-This module provides readout and control of [Helios](https://www.heliosventilatoren.de/de/) KWL ventilation systems with [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
+This module provides readout and control of [Helios](https://www.heliosventilatoren.de/de/) KWL ventilation systems with [easyControls control](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
 No Internet connection to the Helios Cloud Portal (www.easycontrols.net) is required to readout/control the ventilation system via this module. The communication takes place directly with the easyControls control of the ventilation system in the local network.<br><br> 
 
 **Settings in the module instance:**
