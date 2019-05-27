@@ -29,7 +29,7 @@
 <br><br>
 ## 1. Funktionsumfang
 Dieses Modul ermöglicht das Auslesen und Steuern von [Helios](https://www.heliosventilatoren.de/de/) KWL Lüftungsanlagen mit [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
-Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetverbindung mit dem Helios Cloud-Portal (www.easycontrols.net) erforderlich. Die Kommunikation erfolgt direkt mit der easyControls Steuerung der Lüftungsanlage im lokalen Netzwerk, ohne Helios Cloud-Portal.<br><br> 
+Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetverbindung mit dem Helios Cloud-Portal (www.easycontrols.net) erforderlich. Die Kommunikation erfolgt direkt mit der easyControls Steuerung der Lüftungsanlage im lokalen Netzwerk.<br><br> 
 
 **Einstellungsmöglichkeiten in der Modul-Instanz:**
 - Geräte IP
@@ -69,7 +69,7 @@ Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetve
 
 **IPS Version kleiner 5.1 - Installation über Module-Control**
 - Bei IP-Symcon Versionen kleiner 5.1 steht der Module-Store noch nicht zur Verfügung - hier muss manuell über die Kern Instanz "Module Control" die folgende URL hinzugefügt werden:<br>
-`https://www.github.com/Helios/IPS/Helios.git`
+`https://github.com/helios-ventilatoren/symcon-kwl-easycontrols.git`
 
 ...danach kann im Objektbaum von IP-Symcon eine neue Instanz "Helios" hinzugefügt werden. Dann muss nur noch die IP der Lüftungsanlage sowie das easyControls Passwort eintragen werden. Alle weiteren Einstellungen sind optional, um das Modul und die Variablen auf eure Bedürfnisse/Wünsche anzupassen.
 

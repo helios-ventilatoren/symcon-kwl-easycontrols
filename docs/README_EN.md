@@ -28,8 +28,8 @@
 
 <br><br>
 ## 1. Features
-This module enables the reading and control of [Helios](https://www.heliosventilatoren.de/de/) KWL ventilation systems with [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
-No Internet connection to the Helios Cloud Portal (www.easycontrols.net) is required to read/control the ventilation system via this module. The communication takes place directly with the easyControls control of the ventilation system in the local network, without Helios Cloud Portal.<br><br> 
+This module provides readout and control of [Helios](https://www.heliosventilatoren.de/de/) KWL ventilation systems with [easyControls](https://www.heliosventilatoren.de/de/aktuelles/neues-bei-helios-ventilatoren/81-easycontrols-die-revolutionaere-steuerung-fuer-helios-lueftungsgeraete-mit-waermerueckgewinnung-4) in [IP-Symcon](https://www.symcon.de).<br>
+No Internet connection to the Helios Cloud Portal (www.easycontrols.net) is required to readout/control the ventilation system via this module. The communication takes place directly with the easyControls control of the ventilation system in the local network.<br><br> 
 
 **Settings in the module instance:**
 - Devices IP address
@@ -69,7 +69,7 @@ No Internet connection to the Helios Cloud Portal (www.easycontrols.net) is requ
 
 **IPS version less than 5.1 - Installation via Module Control**
 - For IP-Symcon versions smaller than 5.1 the Module Store is not available - here the following URL has to be added manually via the core instance "Module Control":<br>
-`https://www.github.com/Helios/IPS/Helios.git`
+`https://github.com/helios-ventilatoren/symcon-kwl-easycontrols.git`
 
 ...then a new instance "Helios" can be added to the object tree of IP-Symcon. Then only the IP of the ventilation system and the easyControls password have to be entered. All other settings are optional to adapt the module and the variables to your needs.
 
