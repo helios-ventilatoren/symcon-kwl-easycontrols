@@ -59,7 +59,7 @@ No Internet connection to the Helios Cloud Portal (www.easycontrols.net) is requ
 <br><br>
 ## 3. System requirements
 - IP-Symcon Version 4.3 or higher
-- Helios KWL ventilation system with easyControls
+- Helios KWL ventilation system with easyControls control
 
 
 <br><br>
@@ -71,7 +71,7 @@ No Internet connection to the Helios Cloud Portal (www.easycontrols.net) is requ
 - For IP-Symcon versions smaller than 5.1 the Module Store is not available - here the following URL has to be added manually via the core instance "Module Control":<br>
 `https://github.com/helios-ventilatoren/symcon-kwl-easycontrols.git`
 
-...then a new instance "Helios" can be added to the object tree of IP-Symcon. Then only the IP of the ventilation system and the easyControls password have to be entered. All other settings are optional to adapt the module and the variables to your needs.
+...then a new instance "Helios KWL" can be added to the object tree of IP-Symcon. Then only the IP of the ventilation system and the easyControls password have to be entered. All other settings are optional to adapt the module and the variables to your needs.
 
 
 <br><br>

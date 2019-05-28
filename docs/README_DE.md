@@ -59,7 +59,7 @@ Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetve
 <br><br>
 ## 3. Systemanforderungen
 - IP-Symcon ab Version 4.3
-- Helios KWL Lüftungsanlage mit easyControls
+- Helios KWL Lüftungsanlage mit easyControls Steuerung
 
 
 <br><br>
@@ -71,7 +71,7 @@ Zum Auslesen/Steuern der Lüftungsanlage über dieses Modul ist keine Internetve
 - Bei IP-Symcon Versionen kleiner 5.1 steht der Module-Store noch nicht zur Verfügung - hier muss manuell über die Kern Instanz "Module Control" die folgende URL hinzugefügt werden:<br>
 `https://github.com/helios-ventilatoren/symcon-kwl-easycontrols.git`
 
-...danach kann im Objektbaum von IP-Symcon eine neue Instanz "Helios" hinzugefügt werden. Dann muss nur noch die IP der Lüftungsanlage sowie das easyControls Passwort eintragen werden. Alle weiteren Einstellungen sind optional, um das Modul und die Variablen auf eure Bedürfnisse/Wünsche anzupassen.
+...danach kann im Objektbaum von IP-Symcon eine neue Instanz "Helios KWL" hinzugefügt werden. Dann muss nur noch die IP der Lüftungsanlage sowie das easyControls Passwort eintragen werden. Alle weiteren Einstellungen sind optional, um das Modul und die Variablen auf eure Bedürfnisse/Wünsche anzupassen.
 
 
 <br><br>
