@@ -1397,13 +1397,13 @@ class HELIOS extends IPSModule
         $DebugActive = $this->ReadPropertyBoolean('debug');
 
         $dataAR = $this->GetBufferX('MultiBuffer_DataListAll');
-        if (@count($dataAR) > 0) {
+        if (is_array($dataAR)) {
             foreach ($dataAR as $index1 => $arrayEntry) {
-                if (@count($arrayEntry) > 0) {
+                if (is_array($arrayEntry)) {
                     foreach ($arrayEntry as $indexFileName => $filesAR) {
-                        if (@array_key_exists('DDLB', $filesAR) === true) {
+                        if (is_array($filesAR) && array_key_exists('DDLB', $filesAR)) {
                             foreach ($filesAR['DDLB'] as $DDLBentry) {
-                                if ((@array_key_exists('ID', $DDLBentry) === true) && (@array_key_exists('OPT', $DDLBentry) === true)) {
+                                if (is_array($DDLBentry) && array_key_exists('ID', $DDLBentry) && array_key_exists('OPT', $DDLBentry)) {
                                     if ($DDLBentry['ID'] === $id) {
                                         if ($DebugActive === true) {
                                             $this->SendDebug(__FUNCTION__, 'DDLBentry = ' . $this->DataToString($DDLBentry), 0);
