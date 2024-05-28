@@ -151,10 +151,10 @@ class HELIOS extends IPSModule
 
         $removeVarProfiles = false;
         $ModuleInstancesAR = IPS_GetInstanceListByModuleID('{889DFBC4-09A6-4D77-9928-738E5D494362}');
-        if (@array_key_exists('0', $ModuleInstancesAR) === false) {
+        if (is_array($ModuleInstancesAR) && !array_key_exists('0', $ModuleInstancesAR)) {
             $removeVarProfiles = true;
         } else {
-            if ((@array_key_exists('1', $ModuleInstancesAR) === false) && ($ModuleInstancesAR[0] === $this->InstanceID)) {
+            if ((is_array($ModuleInstancesAR) && !array_key_exists('1', $ModuleInstancesAR)) && ($ModuleInstancesAR[0] === $this->InstanceID)) {
                 $removeVarProfiles = true;
             }
         }
@@ -621,7 +621,7 @@ class HELIOS extends IPSModule
                 }
 
                 // Prepare array of werteX_Y.xml for search
-                if (@array_key_exists($FilenameW, $RawAR[$RawIndex]) === false) {
+                if (is_array($RawAR[$RawIndex]) && !array_key_exists($FilenameW, $RawAR[$RawIndex])) {
                     $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0030 // ' . $this->Translate('Problem combining the following file') . ': ' . $FilenameW, 0, KL_ERROR);
                     continue;
                 }
@@ -698,7 +698,7 @@ class HELIOS extends IPSModule
         $DebugActive = $this->ReadPropertyBoolean('debug');
 
         preg_match('|.*\D(\d\d?)\D.*|', $file, $matchxmlnr);
-        if (@array_key_exists('1', $matchxmlnr) === true) {
+        if (is_array($matchxmlnr) && array_key_exists('1', $matchxmlnr)) {
             $refererURL = $this->Map_XMLnr_RefererURL((int)$matchxmlnr[1]);
 
             $resultAR = $this->curl_POST('xml=/data/' . $file, $refererURL);
@@ -873,7 +873,7 @@ class HELIOS extends IPSModule
     {
         $dataAR = $this->Search_DataAR($id, 'ID');
 
-        if (@array_key_exists('Value', $dataAR) === true) {
+        if (is_array($dataAR) && array_key_exists('Value', $dataAR)) {
             if ($dataAR['Value'] !== '-') {
                 $this->SetBuffer($id, '1');
                 return true;
@@ -951,7 +951,7 @@ class HELIOS extends IPSModule
         } else {
             $dataAR = $this->Search_DataAR($id, 'ID');
 
-            if (@array_key_exists('Value', $dataAR) === true) {
+            if (ia_array($dataAR) && array_key_exists('Value', $dataAR)) {
                 if ($dataAR['Value'] !== '-') {
                     return $dataAR['Value'];
                 }
@@ -995,7 +995,7 @@ class HELIOS extends IPSModule
         $postData = $vID . '=' . $value;
         $xml = $this->Map_ID_to_File($vID);
         preg_match('|(\d+)|', $xml, $matchXMLnr);
-        if (@array_key_exists('1', $matchXMLnr) === false) {
+        if (is_array($matchXMLnr) && !array_key_exists('1', $matchXMLnr)) {
             $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0027 // ' . $this->Translate('Passed vID could not be assigned to an XML file') . ' // vID = ' . $vID, 0, KL_ERROR);
             return false;
         }
@@ -1372,7 +1372,7 @@ class HELIOS extends IPSModule
 
         // search combined array
         $dataAR = $this->Search_DataAR($id, 'ID');
-        if (@array_key_exists('File', $dataAR) === true) {
+        if (is_array($dataAR) && array_key_exists('File', $dataAR)) {
             if ($DebugActive === true) {
                 $this->SendDebug(__FUNCTION__, 'ID = ' . $id . ' // ' . $this->Translate('File') . ' = ' . $dataAR['File'], 0);
             }
@@ -1433,12 +1433,12 @@ class HELIOS extends IPSModule
         if (@count($dataAR) > 0) {
             $keyFound = @array_search($id, array_column($dataAR, 'ID'), true);
             if ($keyFound !== false) {
-                if (@array_key_exists('Text', $dataAR[$keyFound]) === true) {
+                if (is_array($dataAR[$keyFound]) && array_key_exists('Text', $dataAR[$keyFound])) {
                     $text = $dataAR[$keyFound]['Text'];
 
                     // If present - remove the sensor number from the beginning of the string
                     preg_match('|^(\d\s)(.*)|', $text, $textMatch);
-                    if (@array_key_exists('2', $textMatch) === true) {
+                    if (is_array($textMatch) && array_key_exists('2', $textMatch)) {
                         $text = $textMatch[2];
                     }
 
@@ -1457,12 +1457,12 @@ class HELIOS extends IPSModule
             if (@count($dataAR) > 0) {
                 $keyFound = @array_search($id, array_column($dataAR, 'ID'), true);
                 if ($keyFound !== false) {
-                    if (@array_key_exists('Text', $dataAR[$keyFound]) === true) {
+                    if (is_array($dataAR[$keyFound]) && array_key_exists('Text', $dataAR[$keyFound])) {
                         $text = $dataAR[$keyFound]['Text'];
 
                         // If present - remove the sensor number from the beginning of the string
                         preg_match('|^(\d\s)(.*)|', $text, $textMatch);
-                        if (@array_key_exists('2', $textMatch) === true) {
+                        if (is_array($textMatch) && array_key_exists('2', $textMatch)) {
                             $text = $textMatch[2];
                         }
 
@@ -1486,11 +1486,11 @@ class HELIOS extends IPSModule
     {
         $DebugActive = $this->ReadPropertyBoolean('debug');
 
-        if (@array_key_exists('ID', $array) === true) {
+        if (is_array($array) && array_key_exists('ID', $array)) {
             $keyFound = @array_search($id, $array['ID'], true);
 
             if ($keyFound !== false) {
-                if (@array_key_exists('VA', $array) === true) {
+                if (is_array($array) && array_key_exists('VA', $array)) {
                     if ($DebugActive === true) {
                         $this->SendDebug(__FUNCTION__, 'ID = ' . $id . ' // VA = ' . $array['VA'][$keyFound], 0);
                     }
@@ -1514,9 +1514,9 @@ class HELIOS extends IPSModule
         if (@count($AllDataAR) > 0) {
             $fileName = $this->Map_ID_to_File($id);
             foreach ($AllDataAR as $index => $AllDataARentry) {
-                if (@array_key_exists($fileName, $AllDataARentry) === true) {
+                if (is_array($AllDataARentry) && array_key_exists($fileName, $AllDataARentry)) {
                     $array = $AllDataAR[$index][$fileName];
-                    if (@array_key_exists('ID', $array) === true) {
+                    if (is_array($array) && array_key_exists('ID', $array)) {
                         $result = $this->Map_ID_to_VA($array, $id);
 
                         if ($DebugActive === true) {
@@ -2427,7 +2427,7 @@ class HELIOS extends IPSModule
         $VarProfileName = 'HELIOS.FanLevel';
         if (IPS_VariableProfileExists($VarProfileName) === false) {
             $FanLevelRangeAR = $this->FanLevel_Range_Determine();
-            if ((@array_key_exists('min', $FanLevelRangeAR) === true) && (@array_key_exists('max', $FanLevelRangeAR) === true)) {
+            if ((is_array($FanLevelRangeAR) === true) && (@array_key_exists('max', $FanLevelRangeAR) && array_key_exists('min', $FanLevelRangeAR) === true) && (@array_key_exists('max', $FanLevelRangeAR))) {
                 $FanLevelMIN = $FanLevelRangeAR['min'];
                 $FanLevelMAX = $FanLevelRangeAR['max'];
             } else {
@@ -2861,10 +2861,10 @@ class HELIOS extends IPSModule
                 $this->SetValue_IfDifferent('SensorCO2_' . $number, $resultAR['CO2_ppm']);
             }
 
-            if (@array_key_exists('Description', $resultAR) === false) {
+            if (is_array($resultAR) && !array_key_exists('Description', $resultAR)) {
                 $resultAR['Description'] = false;
             }
-            if (@array_key_exists('CO2_ppm', $resultAR) === true) {
+            if (is_array($resultAR) && array_key_exists('CO2_ppm', $resultAR)) {
                 return $resultAR;
             }
         }
@@ -3132,13 +3132,13 @@ class HELIOS extends IPSModule
 
         $TempSensorsAR = $this->Temperature_Sensors_All_Get();
 
-        if (@array_key_exists('Value_C', $TempSensorsAR[1]) === true) {
+        if (is_array($TempSensorsAR[1]) && array_key_exists('Value_C', $TempSensorsAR[1])) {
             $temp_outsideair = $TempSensorsAR[1]['Value_C'];
         }
-        if (@array_key_exists('Value_C', $TempSensorsAR[2]) === true) {
+        if (is_array($TempSensorsAR[2]) && array_key_exists('Value_C', $TempSensorsAR[2])) {
             $temp_supplyair = $TempSensorsAR[2]['Value_C'];
         }
-        if (@array_key_exists('Value_C', $TempSensorsAR[3]) === true) {
+        if (is_array($TempSensorsAR[3]) && array_key_exists('Value_C', $TempSensorsAR[3])) {
             $temp_extractedair = $TempSensorsAR[3]['Value_C'];
         }
 
@@ -3270,13 +3270,13 @@ class HELIOS extends IPSModule
             }
         }
 
-        if (@array_key_exists('Description', $resultAR) === false) {
+        if (is_array($resultAR) && !array_key_exists('Description', $resultAR)) {
             $resultAR['Description'] = false;
         }
-        if (@array_key_exists('RelativeHumidity', $resultAR) === false) {
+        if (is_array($resultAR) && !array_key_exists('RelativeHumidity', $resultAR)) {
             $resultAR['RelativeHumidity'] = false;
         }
-        if (@array_key_exists('TemperatureCelsius', $resultAR) === false) {
+        if (is_array($resultAR) && !array_key_exists('TemperatureCelsius', $resultAR)) {
             $resultAR['TemperatureCelsius'] = false;
         }
         if (($resultAR['RelativeHumidity'] !== false) || ($resultAR['TemperatureCelsius'] !== false)) {
@@ -3340,7 +3340,7 @@ class HELIOS extends IPSModule
         $fanLevelMAX = $this->GetBuffer('FanLevelMAX');
         if ($fanLevelMAX === '') {
             $fanDataAR = $this->FanLevel_Range_Determine();
-            if (@array_key_exists('FanLevelMAX', $fanDataAR) === false) {
+            if (is_array($fanDataAR) && !array_key_exists('FanLevelMAX', $fanDataAR)) {
                 $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0020 // ' . $this->Translate('The largest permissible fan level could not be determined') . ' // ' . $this->Translate('Data') . ' = ' . $this->DataToString($fanDataAR), 0, KL_ERROR);
                 return false;
             }
@@ -3492,7 +3492,7 @@ class HELIOS extends IPSModule
         $fanLevelMAX = $this->GetBuffer('FanLevelMAX');
         if ($fanLevelMAX === '') {
             $fanDataAR = $this->FanLevel_Range_Determine();
-            if (@array_key_exists('FanLevelMAX', $fanDataAR) === false) {
+            if (is_array($fanDataAR) && !array_key_exists('FanLevelMAX', $fanDataAR)) {
                 $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0025 // ' . $this->Translate('The largest permissible fan level could not be determined') . ' // ' . $this->Translate('Data') . ' = ' . $this->DataToString($fanDataAR), 0, KL_ERROR);
                 return false;
             }
@@ -3604,7 +3604,7 @@ class HELIOS extends IPSModule
         $fanLevelMAX = $this->GetBuffer('FanLevelMAX');
         if ($fanLevelMAX === '') {
             $fanDataAR = $this->FanLevel_Range_Determine();
-            if (@array_key_exists('FanLevelMAX', $fanDataAR) === false) {
+            if (is_array($fanDataAR) && !array_key_exists('FanLevelMAX', $fanDataAR)) {
                 $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0017 // ' . $this->Translate('The largest permissible fan level could not be determined') . ' // ' . $this->Translate('Data') . ' = ' . $this->DataToString($fanDataAR), 0, KL_ERROR);
                 return false;
             }
@@ -3838,7 +3838,7 @@ class HELIOS extends IPSModule
     public function System_Language_Get()
     {
         $dataAR = $this->Data_Get_Werte('werte4.xml');
-        if (@array_key_exists('LANG', $dataAR) === true) {
+        if (is_array($dataAR) && array_key_exists('LANG', $dataAR)) {
             $language = $dataAR['LANG'];
             $this->SetBuffer('language', $language);
             if (IPS_GetKernelVersion() >= 5.1) {
@@ -3959,7 +3959,7 @@ class HELIOS extends IPSModule
                 $binAR = array_reverse($binAR);
 
                 $resultAR = array();
-                if (@array_key_exists('31', $binAR) === true) {
+                if (is_array($binAR) && array_key_exists('31', $binAR)) {
                     foreach ($binAR as $index => $binEntry) {
                         if ($binEntry === '1') {
                             $resultAR[$index + 1] = $textBitAR[$index];
@@ -4028,7 +4028,7 @@ class HELIOS extends IPSModule
                 $binAR = array_reverse($binAR);
 
                 $resultAR = array();
-                if (@array_key_exists('7', $binAR) === true) {
+                if (is_array($binAR) && array_key_exists('7', $binAR)) {
                     foreach ($binAR as $index => $binEntry) {
                         if ($binEntry === '1') {
                             $resultAR[$index + 1] = $textBitAR[$index];
@@ -4134,7 +4134,7 @@ class HELIOS extends IPSModule
                 $binAR = array_reverse($binAR);
 
                 $resultAR = array();
-                if (@array_key_exists('31', $binAR) === true) {
+                if (is_array($binAR) && array_key_exists('31', $binAR)) {
                     foreach ($binAR as $index => $binEntry) {
 
                         if (($index === 7) || ($index === 8) || ($index === 11)) {
@@ -4150,7 +4150,7 @@ class HELIOS extends IPSModule
 
                         if ($binEntry === '1') {
                             if (@is_string($textBitAR[$index]) === false) {
-                                if (@array_key_exists('1', $textBitAR[$index]) === true) {
+                                if (is_array($textBitAR[$index]) && array_key_exists('1', $textBitAR[$index])) {
                                     $resultAR[$index + 1] = $textBitAR[$index][1];
                                 }
                             } else {
@@ -4158,7 +4158,7 @@ class HELIOS extends IPSModule
                             }
                         } else {
                             if (@is_string($textBitAR[$index]) === false) {
-                                if (@array_key_exists('0', $textBitAR[$index]) === true) {
+                                if (is_array($textBitAR[$index]) && array_key_exists('0', $textBitAR[$index])) {
                                     $resultAR[$index + 1] = $textBitAR[$index][0];
                                 }
                             } else {
@@ -4206,7 +4206,7 @@ class HELIOS extends IPSModule
                 $binAR = array_reverse($binAR);
 
                 $resultAR = array();
-                if (@array_key_exists('7', $binAR) === true) {
+                if (is_array($binAR) && array_key_exists('7', $binAR)) {
                     foreach ($binAR as $index => $binEntry) {
                         if ($binEntry === '1') {
                             $resultAR[$index + 1] = $textBitAR[$index];
@@ -4425,12 +4425,12 @@ class HELIOS extends IPSModule
             }
 
             preg_match('|(\d\d?){1,2}(:)(\d\d)|', $timeFrom, $matchTime);
-            if (@array_key_exists('3', $matchTime) === false) {
+            if (is_array($matchTime) && !array_key_exists('3', $matchTime)) {
                 $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0028 // ' . $this->Translate('The specified time is invalid.') . ' // ' . $this->Translate('Data') . ' = ' . $timeFrom . ' // ' . $this->Translate('Valid timestamp format = HH:MM'), 0, KL_ERROR);
                 return false;
             }
             preg_match('|(\d\d?){1,2}(:)(\d\d)|', $timeTo, $matchTime);
-            if (@array_key_exists('3', $matchTime) === false) {
+            if (is_array($matchTime) && !array_key_exists('3', $matchTime)) {
                 $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0029 // ' . $this->Translate('The specified time is invalid.') . ' // ' . $this->Translate('Data') . ' = ' . $timeTo . ' // ' . $this->Translate('Valid timestamp format = HH:MM'), 0, KL_ERROR);
                 return false;
             }
@@ -4468,7 +4468,7 @@ class HELIOS extends IPSModule
     public function System_SensorControlSleepModeFROM_Set(string $value)
     {
         preg_match('|(\d\d?){1,2}(:)(\d\d)|', $value, $matchTime);
-        if (@array_key_exists('3', $matchTime) === false) {
+        if (is_array($matchTime) && !array_key_exists('3', $matchTime)) {
             $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0036 // ' . $this->Translate('The specified time is invalid.') . ' // ' . $this->Translate('Data') . ' = ' . $value . ' // ' . $this->Translate('Valid timestamp format = HH:MM'), 0, KL_ERROR);
             return false;
         }
@@ -4501,7 +4501,7 @@ class HELIOS extends IPSModule
     public function System_SensorControlSleepModeTO_Set(string $value)
     {
         preg_match('|(\d\d?){1,2}(:)(\d\d)|', $value, $matchTime);
-        if (@array_key_exists('3', $matchTime) === false) {
+        if (is_array($matchTime) && !array_key_exists('3', $matchTime)) {
             $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // 0x0036 // ' . $this->Translate('The specified time is invalid.') . ' // ' . $this->Translate('Data') . ' = ' . $value . ' // ' . $this->Translate('Valid timestamp format = HH:MM'), 0, KL_ERROR);
             return false;
         }
@@ -4628,7 +4628,7 @@ class HELIOS extends IPSModule
         $sensors_vID_AR[7]['vID'] = 'v00110';
         $sensors_vID_AR[7]['varIdent'] = 'TemperatureReturnWWRegister';
 
-        if (@array_key_exists($number, $sensors_vID_AR) === false) {
+        if (is_array($sensors_vID_AR) && !array_key_exists($number, $sensors_vID_AR)) {
             $this->SendDebug(__FUNCTION__, $this->Translate('ERROR') . ' // ' . $this->Translate('Invalid sensor number') . ' // ' . $this->Translate('Number') . ' = ' . $number, 0, KL_ERROR);
             return false;
         }
@@ -4648,10 +4648,10 @@ class HELIOS extends IPSModule
             }
         }
 
-        if (@array_key_exists('Description', $resultAR) === false) {
+        if (is_array($resultAR) && !array_key_exists('Description', $resultAR)) {
             $resultAR['Description'] = false;
         }
-        if (@array_key_exists('Value_C', $resultAR) === true) {
+        if (is_array($resultAR) && array_key_exists('Value_C', $resultAR)) {
             return $resultAR;
         }
 
@@ -4869,10 +4869,10 @@ class HELIOS extends IPSModule
                 $this->SetValue_IfDifferent('SensorVOC_' . $number, $resultAR['VOC_ppm']);
             }
 
-            if (@array_key_exists('Description', $resultAR) === false) {
+            if (is_array($resultAR) && !array_key_exists('Description', $resultAR)) {
                 $resultAR['Description'] = false;
             }
-            if (@array_key_exists('VOC_ppm', $resultAR) === true) {
+            if (is_array($resultAR) && array_key_exists('VOC_ppm', $resultAR)) {
                 return $resultAR;
             }
         }
