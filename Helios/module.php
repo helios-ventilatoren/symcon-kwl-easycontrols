@@ -951,7 +951,7 @@ class HELIOS extends IPSModule
         } else {
             $dataAR = $this->Search_DataAR($id, 'ID');
 
-            if (ia_array($dataAR) && array_key_exists('Value', $dataAR)) {
+            if (is_array($dataAR) && array_key_exists('Value', $dataAR)) {
                 if ($dataAR['Value'] !== '-') {
                     return $dataAR['Value'];
                 }
